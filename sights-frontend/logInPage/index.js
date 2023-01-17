@@ -5,10 +5,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function render(){
-    
     const page = document.getElementById('page');
     const hello = document.createElement('p');
     hello.innerHTML = 'hello';
     page.append(hello);
-
 }
