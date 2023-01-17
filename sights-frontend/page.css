@@ -7,9 +7,20 @@ html, body{
     width: 100vw;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
 }
 
 #button{
     width: 120px;
+}
+
+#menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100px;
+    background-color: aqua;
 }
