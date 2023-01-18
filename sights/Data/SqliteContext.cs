@@ -34,40 +34,40 @@ public partial class SqliteContext : DbContext
 
             entity.HasOne(d => d.Country).WithMany(p => p.Attractions)
                 .HasForeignKey(d => d.CountryId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.User).WithMany(p => p.Attractions)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<City>(entity =>
         {
             entity.HasOne(d => d.Country).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.CountryId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.User).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<Comment>(entity =>
         {
             entity.HasOne(d => d.Attraction).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.AttractionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<Country>(entity =>
         {
             entity.HasOne(d => d.User).WithMany(p => p.Countries)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<Like>(entity =>
@@ -76,22 +76,22 @@ public partial class SqliteContext : DbContext
 
             entity.HasOne(d => d.Attraction).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.AttractionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.User).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<SubComment>(entity =>
         {
             entity.HasOne(d => d.Comment).WithMany(p => p.SubComments)
                 .HasForeignKey(d => d.CommentId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.User).WithMany(p => p.SubComments)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         OnModelCreatingPartial(modelBuilder);
