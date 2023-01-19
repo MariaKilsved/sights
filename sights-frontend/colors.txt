@@ -1,0 +1,6 @@
+primary-btn: #2CCCFF
+
+primary-green: #95E8D9
+secondary-green: #8ECEC2
+
+text color: #1F4E5C
