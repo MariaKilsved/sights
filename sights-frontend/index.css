@@ -1,5 +1,10 @@
 #bg{
     position: absolute;
     bottom: 0;
-    left: 0;
+    width: 110vw;
+}
+
+#page{
+    height: calc(100vh - 78px);
+    overflow-y: hidden;
 }
