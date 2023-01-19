@@ -21,11 +21,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         if(response > 199 && response < 300){
             console.log('success');
             loggedIn.innerHTML = 'success'
-            page.append('loggedIn')
+            page.append(loggedIn)
         } else {
             console.log('failed');
             loggedIn.innerHTML = 'failed'
-            page.append('loggedIn')
+            page.append(loggedIn)
         }
     });
 
