@@ -1,5 +1,6 @@
 import primaryButton from "./primaryButton.js";
 import secondaryButton from "./secondaryButton.js";
+import icon from "./logo.js";
 
 export default function Menu(){
     const menu = document.createElement('div');
@@ -13,9 +14,7 @@ export default function Menu(){
     signup.innerHTML = 'signup';
     signup.href = '/register'
 
-    const logo = document.createElement('img');
-    logo.id = 'logo';
-    logo.src = '/icons/Logo.svg'
+    const logo = icon();
 
     menu.append(logo);
     menu.append(logIn);

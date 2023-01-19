@@ -8,11 +8,6 @@
     left: 0;
     width: 100vw;
     height: 72px;
-    background-color: gray;
+    background-color: white;
     box-shadow: 10px;
-}
-
-#logo{
-    width: 68px;
-    height: 68px;
 }
