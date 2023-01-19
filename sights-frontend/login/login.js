@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     logbtn.addEventListener('click', () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-user').value;
-        const response = get({username, password}, '');
+        const response = get(`https://localhost:7260/api/User/UserLogIn?username=${username}&password=${password}`);
 
         const page = document.getElementById('page');
         const loggedIn = document.createElement('p');
