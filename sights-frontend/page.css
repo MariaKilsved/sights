@@ -1,7 +1,15 @@
 html, body{
     padding: 0;
     margin: 0;
+    background-color: #DAECE9;
 }
+h1,h2{
+    color: #2CCCFF;
+}
+#sights{
+    font-weight: bold;
+}
+
 
 #page{
     width: 100vw;
@@ -22,7 +30,7 @@ html, body{
     left: 0;
     width: 100vw;
     height: 100px;
-    background-color: aqua;
+    background-color: #DAECE9;
     box-shadow: 10px;
 }
 
