@@ -29,7 +29,7 @@ function addSight(){
     card.append(inputCity);
 
     const inputDescription = document.createElement("input");
-    inputDescription.id = 'description'
+    inputDescription.id = 'inputDescription';
     inputDescription.setAttribute("type", "text");
     inputDescription.placeholder ="Description"
     card.append(inputDescription);

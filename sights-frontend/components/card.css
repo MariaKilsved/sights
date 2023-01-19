@@ -16,12 +16,17 @@ input{
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  
+  outline: none;
 }
+input:focus {
+    border: 3px solid  #002F3E;
+  }
 
-#description{
+  #inputDescription{
+    padding: 10px;
+    margin: 20px;
     height: 100px;
-
+    border-radius: 5px;
 }
 
 
