@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
 function logIn(){
+   
     const page = document.getElementById('page');
     const card = Card();
     
@@ -28,15 +29,18 @@ function logIn(){
     const logo = icon(); 
     logo.className = 'logoClass' ;
     page.append(logo);
-    
     page.append(card);
 
+   
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'button-container';
     const logbtn = loginBtn('button');
     const signbtn = signupBtn('button');
     logbtn.innerHTML ='Login'
     signbtn.innerHTML ='Sign Up'
-    card.append(logbtn);
-    card.append(signbtn);
+    buttonContainer.append(logbtn);
+    buttonContainer.append(signbtn);
+    card.append(buttonContainer);
     
     
 

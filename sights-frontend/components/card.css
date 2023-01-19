@@ -49,6 +49,10 @@ p2{
     margin: 20px;
     border-radius: 5px;
 }
+#button-container{
+    display: flex;
+    gap: 5px;
+}
 
 
 
