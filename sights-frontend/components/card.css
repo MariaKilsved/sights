@@ -19,22 +19,12 @@ input{
   border-radius: 5px;
   outline: none;
 }
-input:focus {
-    border: 3px solid  #002F3E;
-  }
-  outline: none;
-  
-}
+
 
 input:focus {
   border: 3px solid  #8ECEC2;
-  #inputDescription{
-    padding: 10px;
-    margin: 20px;
-    height: 100px;
-    border-radius: 5px;
+ 
 }
-
 
 p{
     color:black;
@@ -59,5 +49,7 @@ p2{
     margin: 20px;
     border-radius: 5px;
 }
+
+
 
 

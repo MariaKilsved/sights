@@ -23,4 +23,11 @@ h1,h2{
     width: 68px;
     height: 68px;
 }
+.logoClass{
+    position: absolute;
+    top: 5px ;
+    left: 5px;
+
+    
+}
 

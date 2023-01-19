@@ -1,6 +1,8 @@
 'use strict';
-import Menu from '../components/Menu.js'
 import Card from "../components/Card.js";
+import icon from '../components/logo.js';
+import loginBtn from "../components/primaryButton.js";
+import signupBtn from "../components/secondaryButton.js";
 window.addEventListener("DOMContentLoaded", async () => {
     logIn();
 });
@@ -9,7 +11,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 function logIn(){
     const page = document.getElementById('page');
     const card = Card();
-    const menu = Menu();  
+    
     const login = document.createElement('p');
     login.innerHTML = 'Login';
     card.append(login)
@@ -23,10 +25,19 @@ function logIn(){
     inputPassword.setAttribute("type", "text");
     inputPassword.placeholder ="Password"
     card.append(inputPassword);
-    
+    const logo = icon(); 
+    logo.className = 'logoClass' ;
+    page.append(logo);
     
     page.append(card);
-    page.append(menu);
+
+    const logbtn = loginBtn('button');
+    const signbtn = signupBtn('button');
+    logbtn.innerHTML ='Login'
+    signbtn.innerHTML ='Sign Up'
+    card.append(logbtn);
+    card.append(signbtn);
+    
     
 
 }
