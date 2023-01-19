@@ -13,6 +13,7 @@
 }
 input{
     border: none;
+    border: none;
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
@@ -21,7 +22,12 @@ input{
 input:focus {
     border: 3px solid  #002F3E;
   }
+  outline: none;
+  
+}
 
+input:focus {
+  border: 3px solid  #8ECEC2;
   #inputDescription{
     padding: 10px;
     margin: 20px;
@@ -47,8 +53,11 @@ p2{
     color:black;
     font-weight: bold;
     font-size: large;
-    padding-right: 140px;
-    padding-top: 10px;
+}
+#inputDescription{
+    padding: 10px;
+    margin: 20px;
+    border-radius: 5px;
 }
 
 
