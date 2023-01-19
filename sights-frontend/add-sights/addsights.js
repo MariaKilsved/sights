@@ -1,6 +1,8 @@
 'use strict';
 import Menu from '../components/Menu.js'
 import Card from "../components/Card.js";
+import icon from '../components/logo.js';
+
 window.addEventListener("DOMContentLoaded", async () => {
     addSight();
 });
@@ -9,6 +11,7 @@ function addSight(){
     const page = document.getElementById('page');
     const card = Card();
     const menu = Menu();  
+    const logo = icon();  
     const addSight = document.createElement('p2');
     addSight.innerHTML = 'Add Sight';
     card.append(addSight)
@@ -35,7 +38,7 @@ function addSight(){
     card.append(inputDescription);
  
 
-
+    page.append(logo);
     page.append(card);
     page.append(menu);
     
