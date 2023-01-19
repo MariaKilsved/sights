@@ -1,0 +1,14 @@
+#primary-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 34px;
+    background-color: #2CCCFF;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    color: #1F4E5C;
+    font-size: 12px;
+    font-weight: 600;
+}
