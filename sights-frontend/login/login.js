@@ -23,15 +23,6 @@ function logIn(){
     inputPassword.setAttribute("type", "text");
     inputPassword.placeholder ="Password"
     card.append(inputPassword);
-
-    // const btnlogin = document.createElement('btnlogin');
-    // btnlogin.innerText='Login'
-    // card.append(btnlogin);
- 
-
-    // const btnsignup = document.createElement('btnsignup');
-    // btnsignup.innerText='Sign Up'
-    // card.append(btnsignup);
     
     
     page.append(card);
