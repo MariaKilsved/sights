@@ -11,11 +11,16 @@
     
 }
 input{
-  border-color: black;  
+    border: none;
   padding: 10px;
   margin: 20px;
   border-radius: 5px;
+  outline: none;
   
+}
+
+input:focus {
+  border: 3px solid  #8ECEC2;
 }
 
 
@@ -35,8 +40,7 @@ p2{
     font-weight: bold;
     font-size: large;
 }
-inputDescription{
-    border-color: black;  
+#inputDescription{
     padding: 10px;
     margin: 20px;
     border-radius: 5px;
