@@ -121,7 +121,7 @@ namespace sights.Controllers
             return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        [HttpGet("UserLogIn")]
+        [HttpGet("Login")]
         public async Task<bool> Login(string username, string password)
         {
             IEnumerable<User> Users = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
