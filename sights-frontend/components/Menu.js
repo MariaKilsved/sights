@@ -6,6 +6,9 @@ export default function Menu(){
     const menu = document.createElement('div');
     menu.id = 'menu';
 
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'button-container';
+
     const logIn = primaryButton('a');
     logIn.innerHTML = 'login';
     logIn.href = '/login'
@@ -17,8 +20,8 @@ export default function Menu(){
     const logo = icon();
 
     menu.append(logo);
-    menu.append(logIn);
-    menu.append(signup);
-
+    buttonContainer.append(logIn);
+    buttonContainer.append(signup);
+    menu.append(buttonContainer);
     return menu;
 }

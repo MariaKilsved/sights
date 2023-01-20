@@ -4,6 +4,7 @@ using sqlite.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -12,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<SqliteContext>
-    (options => options.UseSqlite("Name=Sqlite"));
+    (options => options.UseSqlite("Data Source=../Database/Sights.db"));
 
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false)
     .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -27,6 +28,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+
+// global cors policy - the call to UseCors() must be done here
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()); // allow credentials
+
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.UseAuthorization();
 
