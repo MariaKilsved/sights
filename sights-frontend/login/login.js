@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         console.log(response);
 
         if(response == true){
-            console.log('success');
+            localStorage.setItem('username', username)
         } else {
             console.log('failed');
         }
