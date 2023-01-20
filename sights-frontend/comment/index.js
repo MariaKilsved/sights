@@ -1,5 +1,8 @@
 'use strict';
 
+import Menu from "../components/Menu.js";
+import Sight from "../components/Sight.js";
+
 window.addEventListener("DOMContentLoaded", async () => {
     render();
 });
@@ -7,8 +10,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 function render(){
     
     const page = document.getElementById('page');
-    const hello = document.createElement('p');
-    hello.innerHTML = 'hello';
-    page.append(hello);
+    const menu = Menu();
+    const sight = Sight();
+
+    page.append(menu);
+    page.append(sight);
 
 }

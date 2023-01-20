@@ -20,15 +20,11 @@ input{
   outline: none;
 }
 input:focus {
-    border: 3px solid  #002F3E;
-  }
-  outline: none;
-  
+    border: 3px solid  #002F3E;  
 }
 
 input:focus {
   border: 3px solid  #8ECEC2;
-  #inputDescription{
     padding: 10px;
     margin: 20px;
     height: 100px;
