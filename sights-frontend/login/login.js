@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
-        const response = await get(`https://localhost:7260/api/User/UserLogIn?username=${username}&password=${password}`);
+        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
 
         console.log(response);
 
