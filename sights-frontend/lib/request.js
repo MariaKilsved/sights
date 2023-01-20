@@ -2,7 +2,9 @@ export async function get(url){
     const response = await fetch( url , {
         method: 'GET',
         mode: 'cors',
-        
-    });
-    return response.json();
+        headers: {
+            'Accept': 'application/json'
+          },
+    }).then(res => res.json())
+    return response;
 }

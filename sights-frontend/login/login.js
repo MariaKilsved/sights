@@ -10,22 +10,18 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const logbtn = document.getElementById('log-btn');
 
-    logbtn.addEventListener('click', () => {
+    logbtn.addEventListener('click', async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
-        const response = get(`https://localhost:7260/api/User/UserLogIn?username=${username}&password=${password}`);
+        
+        const response = await get(`https://localhost:7260/api/User/UserLogIn?username=${username}&password=${password}`);
 
-        const page = document.getElementById('page');
-        const loggedIn = document.createElement('p');
+        console.log(response);
 
-        if(response > 199 && response < 300){
+        if(response == true){
             console.log('success');
-            loggedIn.innerHTML = 'success'
-            page.append(loggedIn)
         } else {
             console.log('failed');
-            loggedIn.innerHTML = 'failed'
-            page.append(loggedIn)
         }
     });
 
