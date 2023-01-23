@@ -37,12 +37,12 @@ function register(){
 
    
     const inputPasswordAccount = document.createElement("input");
-    inputPasswordAccount.setAttribute("type", "text");
+    inputPasswordAccount.setAttribute("type", "password");
     inputPasswordAccount.placeholder ="Password"
     card.append(inputPasswordAccount);
 
     const inputConfirmPassword = document.createElement("input");
-    inputConfirmPassword.setAttribute("type", "text");
+    inputConfirmPassword.setAttribute("type", "password");
     inputConfirmPassword.placeholder ="Confirm Password"
     card.append(inputConfirmPassword);
     page.append(card);

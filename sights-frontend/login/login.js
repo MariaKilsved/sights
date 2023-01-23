@@ -44,7 +44,7 @@ function logIn(){
 
     const inputPassword = document.createElement("input");
     inputPassword.id = 'input-password';
-    inputPassword.setAttribute("type", "text");
+    inputPassword.setAttribute("type", "password");
     inputPassword.placeholder ="Password"
     card.append(inputPassword);
     const logo = icon(); 
@@ -58,6 +58,7 @@ function logIn(){
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
+    logbtn.href = '/'
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
     buttonContainer.append(logbtn);
