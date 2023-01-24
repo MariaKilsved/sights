@@ -84,12 +84,32 @@ namespace sights.Controllers
         // POST: api/Like
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Like>> PostLike(Like like)
         {
-          if (_context.Likes == null)
-          {
-              return Problem("Entity set 'SqliteContext.Likes'  is null.");
-          }
+            if (_context.Likes == null)
+            {
+                return NotFound("Entity set 'SqliteContext.Likes'  is null.");
+            }
+            if(like.UserId == null)
+            {
+                return BadRequest("UserId is null");
+            }
+            if(like.AttractionId== null)
+            {
+                return BadRequest("AttractionId is null");
+            }
+            if(like.Like1== null)
+            {
+                return BadRequest("Like is null");
+            }
+            if(like.Like1 != 1 && like.Like1 != 0)
+            {
+                return BadRequest("Like must be either 0 or 1");
+            }
+
             _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 
