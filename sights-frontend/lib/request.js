@@ -8,3 +8,4 @@ export async function get(url){
     }).then(res => res.json())
     return response;
 }
+
