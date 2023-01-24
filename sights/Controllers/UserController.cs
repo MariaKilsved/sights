@@ -84,12 +84,32 @@ namespace sights.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<User>> PostUser(User user)
         {
           if (_context.Users == null)
           {
-              return Problem("Entity set 'SqliteContext.Users'  is null.");
+              return NotFound("Entity set 'SqliteContext.Users'  is null.");
           }
+
+          //Will complain of empty request body instead
+          if (user == null)
+          {
+              return BadRequest("User is null.");
+          }
+          
+          if(user.Username == null)
+          {
+              return BadRequest("Username is null");
+          }
+
+          if(user.Password == null)
+          {
+               return BadRequest("Password is null");
+          }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
