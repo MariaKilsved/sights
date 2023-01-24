@@ -24,7 +24,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         window.location.href='/'
         } else {
             window.alert('Failed to login')
-            //console.log('failed');
         }
     });
 
