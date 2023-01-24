@@ -4,6 +4,7 @@ import icon from '../components/logo.js';
 import loginBtn from "../components/primaryButton.js";
 import signupBtn from "../components/secondaryButton.js";
 import {get} from '../lib/request.js';
+    
 
 window.addEventListener("DOMContentLoaded", async () => {
     logIn();
@@ -14,10 +15,17 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
+        const encryptedPassword = CryptoJS.AES.encrypt(password, username);
+        const decryptedPassword = CryptoJS.AES.decrypt(encryptedPassword, username);
+        const decryptedToString = decryptedPassword.toString(CryptoJS.enc.Utf8);
+
         const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
-                
-        console.log(response);
-        console.log(encodedUsername);
+
+        console.log(`Lösenord:\n ${password}\n
+                           Krypterat lösenord:\n ${encryptedPassword}\n
+                           Dekrypterat lösenord:\n ${decryptedPassword}\n
+                           Dekrypterat lösenord i text:\n ${decryptedToString}\n`);
+
 
         if(response.status === 204){
             localStorage.setItem('username', username)
