@@ -5,7 +5,7 @@ export async function get(url){
         headers: {
             'Accept': 'application/json'
           },
-    }).then(res => res.json())
+    });
     return response;
 }
 

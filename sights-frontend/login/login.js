@@ -16,9 +16,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         
         const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
 
-        console.log(response);
-
-        if(response == true){
+        if(response.status === 204){
             localStorage.setItem('username', username)
         window.alert(`Welcome ${username}`)
         window.location.href='/'
