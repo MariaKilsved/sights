@@ -3,7 +3,7 @@ import Card from "../components/Card.js";
 import icon from '../components/logo.js';
 import loginBtn from "../components/primaryButton.js";
 import signupBtn from "../components/secondaryButton.js";
-import {get} from '../lib/request.js'
+import {get} from '../lib/request.js';
 
 window.addEventListener("DOMContentLoaded", async () => {
     logIn();
@@ -15,6 +15,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         const password = document.getElementById('input-password').value;
         
         const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
+                
+        console.log(response);
+        console.log(encodedUsername);
 
         if(response.status === 204){
             localStorage.setItem('username', username)
@@ -23,12 +26,13 @@ window.addEventListener("DOMContentLoaded", async () => {
         } else {
             window.alert('Failed to login')
         }
+
     });
 
 });
 
 
-function logIn(){
+async function logIn(){
     const page = document.getElementById('page');
     const card = Card();
     
