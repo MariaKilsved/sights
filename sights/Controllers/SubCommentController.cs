@@ -23,44 +23,44 @@ namespace sights.Controllers
 
         // GET: api/SubComment
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<SubComment>>> GetSubComments()
         {
-          if (_context.Comments == null)
+          if (_context.SubComments == null)
           {
               return NotFound();
           }
-            return await _context.Comments.ToListAsync();
+            return await _context.SubComments.ToListAsync();
         }
 
         // GET: api/SubComment/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(long id)
+        public async Task<ActionResult<SubComment>> GetSubComment(long id)
         {
-          if (_context.Comments == null)
+          if (_context.SubComments == null)
           {
               return NotFound();
           }
-            var comment = await _context.Comments.FindAsync(id);
+            var subComment = await _context.SubComments.FindAsync(id);
 
-            if (comment == null)
+            if (subComment == null)
             {
                 return NotFound();
             }
 
-            return comment;
+            return subComment;
         }
 
         // PUT: api/SubComment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(long id, Comment comment)
+        public async Task<IActionResult> PutSubComment(long id, SubComment subComment)
         {
-            if (id != comment.Id)
+            if (id != subComment.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(comment).State = EntityState.Modified;
+            _context.Entry(subComment).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace sights.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CommentExists(id))
+                if (!SubCommentExists(id))
                 {
                     return NotFound();
                 }
@@ -84,41 +84,41 @@ namespace sights.Controllers
         // POST: api/SubComment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<SubComment>> PostSubComment(SubComment subComment)
         {
-          if (_context.Comments == null)
+          if (_context.SubComments == null)
           {
-              return Problem("Entity set 'SqliteContext.Comments'  is null.");
+              return Problem("Entity set 'SqliteContext.SubComments'  is null.");
           }
-            _context.Comments.Add(comment);
+            _context.SubComments.Add(subComment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
+            return CreatedAtAction("GetSubComment", new { id = subComment.Id }, subComment);
         }
 
         // DELETE: api/SubComment/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment(long id)
+        public async Task<IActionResult> DeleteSubComment(long id)
         {
-            if (_context.Comments == null)
+            if (_context.SubComments == null)
             {
                 return NotFound();
             }
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
+            var subComment = await _context.SubComments.FindAsync(id);
+            if (subComment == null)
             {
                 return NotFound();
             }
 
-            _context.Comments.Remove(comment);
+            _context.SubComments.Remove(subComment);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CommentExists(long id)
+        private bool SubCommentExists(long id)
         {
-            return (_context.Comments?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.SubComments?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

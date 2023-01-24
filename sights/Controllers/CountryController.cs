@@ -84,12 +84,31 @@ namespace sights.Controllers
         // POST: api/Country
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Country>> PostCountry(Country country)
         {
-          if (_context.Countries == null)
-          {
-              return Problem("Entity set 'SqliteContext.Countries'  is null.");
-          }
+            if (_context.Countries == null)
+            {
+                return NotFound("Entity set 'SqliteContext.Countries'  is null.");
+            }
+
+            if(country == null)
+            {
+                return BadRequest("Country is null");
+            }
+
+            if(string.IsNullOrWhiteSpace(country.Name))
+            {
+                return BadRequest("Country must have a name");
+            }
+
+            if(country.UserId == null)
+            {
+                return BadRequest("UserId is null");
+            }
+
             _context.Countries.Add(country);
             await _context.SaveChangesAsync();
 

@@ -16,12 +16,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         
         const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
 
-        console.log(response);
-
-        if(response == true){
+        if(response.status === 204){
             localStorage.setItem('username', username)
+        window.alert(`Welcome ${username}`)
+        window.location.href='/'
         } else {
-            console.log('failed');
+            window.alert('Failed to login')
         }
     });
 
@@ -44,7 +44,7 @@ function logIn(){
 
     const inputPassword = document.createElement("input");
     inputPassword.id = 'input-password';
-    inputPassword.setAttribute("type", "text");
+    inputPassword.setAttribute("type", "password");
     inputPassword.placeholder ="Password"
     card.append(inputPassword);
     const logo = icon(); 
@@ -58,6 +58,7 @@ function logIn(){
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
+    
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
     buttonContainer.append(logbtn);
