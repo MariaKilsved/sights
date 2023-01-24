@@ -8,7 +8,7 @@ export default function CommentBox(){
     commentText.innerHTML = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud'
 
     const commentedAt = document.createElement('span');
-    commentedAt.className = 'time-right';
+    commentedAt.className = 'time-left';
     commentedAt.innerHTML = '11.02';
 
     commentBoxIMG.src = '../Figma images/anonymous.png';
