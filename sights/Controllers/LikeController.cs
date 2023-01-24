@@ -53,11 +53,24 @@ namespace sights.Controllers
         // PUT: api/Like/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutLike(long id, Like like)
         {
             if (id != like.Id)
             {
-                return BadRequest();
+                return BadRequest("Ids does not match");
+            }
+
+            if (like.UserId == null)
+            {
+                return BadRequest("Need a UserId");
+            }
+
+            if (like.AttractionId == null)
+            { 
+               return BadRequest("Need an attractionId");
             }
 
             _context.Entry(like).State = EntityState.Modified;
@@ -70,7 +83,7 @@ namespace sights.Controllers
             {
                 if (!LikeExists(id))
                 {
-                    return NotFound();
+                    return NotFound("No Like for this Id was found");
                 }
                 else
                 {
