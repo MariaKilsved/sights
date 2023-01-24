@@ -118,17 +118,49 @@ namespace sights.Controllers
 
         // DELETE: api/Like/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLike(long id)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+
+        public async Task<IActionResult> DeleteLike(long id, long? attractionId, long? userId)
         {
             if (_context.Likes == null)
             {
-                return NotFound();
+                return NotFound("Context is null");
             }
             var like = await _context.Likes.FindAsync(id);
             if (like == null)
             {
-                return NotFound();
+                return NotFound("There is no like for this Id");
             }
+
+            if (like.UserId == null)
+            {
+                return BadRequest("UserId is null");
+            }
+
+            if (like.AttractionId == null)
+            {
+                return BadRequest("AttractionId is null");
+            }
+
+            if (like.Like1 == null)
+            {
+                return BadRequest("There is no like or dislike for this Id");
+            }
+
+            if (like.UserId != userId)
+            {
+                return Unauthorized("UserIds does not match");
+            }
+
+            if (like.AttractionId != attractionId)
+            {
+                return BadRequest("AttractionIds does not match");
+            }
+
+
 
             _context.Likes.Remove(like);
             await _context.SaveChangesAsync();
