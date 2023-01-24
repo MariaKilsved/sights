@@ -84,30 +84,52 @@ namespace sights.Controllers
         // POST: api/Attraction
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Attraction>> PostAttraction(Attraction attraction)
         {
           if (_context.Attractions == null)
           {
-              return Problem("Entity set 'SqliteContext.Attractions'  is null.");
+              return NotFound("Entity set 'SqliteContext.Attractions'  is null.");
+          }
+
+          if (attraction.UserId == null)
+          {
+                return BadRequest("UserID is null");
           }
             _context.Attractions.Add(attraction);
             await _context.SaveChangesAsync();
 
+            if (attraction.Title == null)
+            {
+                return BadRequest("Attraction must have a title");
+            }
+
+            if (attraction.Description == null)
+            {
+                return BadRequest("Attraction must have a description");
+            }
+
+         
             return CreatedAtAction("GetAttraction", new { id = attraction.Id }, attraction);
         }
 
         // DELETE: api/Attraction/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteAttraction(long id)
         {
             if (_context.Attractions == null)
             {
-                return NotFound();
+                return NotFound("Context is null");
             }
+        
             var attraction = await _context.Attractions.FindAsync(id);
             if (attraction == null)
             {
-                return NotFound();
+                return NotFound("Delete from database failed. This attraction did not exist, before you tried to delete it.");
             }
 
             _context.Attractions.Remove(attraction);
