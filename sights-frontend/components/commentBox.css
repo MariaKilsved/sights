@@ -1,0 +1,47 @@
+
+body {
+    padding: 0 20px;
+}
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1em;
+    width: 40%;
+}
+
+div {
+    display: block;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 20%;
+  margin-right: 40px;
+  border-radius: 50%;
+}
+
+.time-right {
+  float: left;
+  color: #aaa;
+  margin-left: 0.5em;
+}
+
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
