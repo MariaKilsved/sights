@@ -84,17 +84,40 @@ namespace sights.Controllers
         // POST: api/City
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+
         public async Task<ActionResult<City>> PostCity(City city)
         {
+
           if (_context.Cities == null)
           {
-              return Problem("Entity set 'SqliteContext.Cities'  is null.");
+              return NotFound("Entity set 'SqliteContext.Cities'  is null.");
           }
+
+            if (city.UserId == null)
+            {
+                return BadRequest("UserId is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(city.Name))
+            {
+                return BadRequest("City must have a name");
+            }
+
+            if (city.CountryId == null)
+            {
+                return BadRequest("CountryId is null");
+            }
             _context.Cities.Add(city);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCity", new { id = city.Id }, city);
+
         }
+
+       
 
         // DELETE: api/City/5
         [HttpDelete("{id}")]
