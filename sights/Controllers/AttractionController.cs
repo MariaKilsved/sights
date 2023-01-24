@@ -117,16 +117,19 @@ namespace sights.Controllers
 
         // DELETE: api/Attraction/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteAttraction(long id)
         {
             if (_context.Attractions == null)
             {
-                return NotFound();
+                return NotFound("Context is null");
             }
+        
             var attraction = await _context.Attractions.FindAsync(id);
             if (attraction == null)
             {
-                return NotFound();
+                return NotFound("Delete from database failed. This attraction did not exist, before you tried to delete it.");
             }
 
             _context.Attractions.Remove(attraction);
