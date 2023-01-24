@@ -20,8 +20,11 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         if(response == true){
             localStorage.setItem('username', username)
+        window.alert(`Welcome ${username}`)
+        window.location.href='/'
         } else {
-            console.log('failed');
+            window.alert('Failed to login')
+            //console.log('failed');
         }
     });
 
@@ -58,7 +61,7 @@ function logIn(){
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
-    logbtn.href = '/'
+    
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
     buttonContainer.append(logbtn);
