@@ -13,7 +13,6 @@
 }
 input{
     border: none;
-    border: none;
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
@@ -48,9 +47,16 @@ p2{
     padding: 10px;
     margin: 20px;
     border-radius: 5px;
-    
-    
+    resize: none;
+     border: none;
+     outline: none;
+     height: 70px;
 }
+
+#inputDescription:focus{
+      border: 3px solid  #8ECEC2;
+}
+
 #button-container{
     display: flex;
     gap: 5px;

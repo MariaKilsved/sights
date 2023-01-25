@@ -14,7 +14,7 @@ export default function Sight(){
 
     const likesUp = document.createElement('p');
     likesUp.id = 'likesUp';
-    likesUp.innerHTML = '1';
+    likesUp.innerHTML = 0;
 
     likesUpContainer.append(likesUp);
     likesUpContainer.append(likeUpIMG);
@@ -28,7 +28,7 @@ export default function Sight(){
         
     const likesDown = document.createElement('p');
     likesDown.id = 'likesDown';
-    likesDown.innerHTML = '2';
+    likesDown.innerHTML = 0;
 
     likesDownContainer.append(likeDownIMG);
     likesDownContainer.append(likesDown);

@@ -84,12 +84,29 @@ namespace sights.Controllers
         // POST: api/Comment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
           if (_context.Comments == null)
           {
-              return Problem("Entity set 'SqliteContext.Comments'  is null.");
+              return NotFound("Entity set 'SqliteContext.Comments'  is null.");
           }
+          if(comment.UserId == null)
+            {
+                return BadRequest("userId is null");
+
+            }
+            if (comment.AttractionId == null)
+            {
+                return BadRequest("AttractionId is null");
+            }
+            if (string.IsNullOrWhiteSpace(comment.Content))
+            {
+                return BadRequest("Content can't be empty");
+            }
+
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 

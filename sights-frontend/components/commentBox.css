@@ -1,0 +1,63 @@
+
+body {
+    padding: 0 20px;
+}
+
+#commentContainer{
+  width: 40%;
+  height: 44%;
+  overflow-y: auto;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.25));
+
+}
+
+.container {
+    background-color: rgba(149, 232, 217, 0.22);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1em;
+    width: fit-content;
+    height: fit-content;
+
+}
+
+div {
+    display: block;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 20%;
+  margin-right: 40px;
+  border-radius: 50%;
+  filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.25));
+
+}
+
+.time-left{
+  float: left;
+  color: rgb(243, 212, 104);
+  margin-left: 0.5em;
+  font-weight: bold;
+}
+
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+.container p {
+  font-weight: bolder;
+    display: block;
+    overflow-x: auto;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #1F4E5C;
+}

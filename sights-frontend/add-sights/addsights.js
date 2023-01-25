@@ -34,7 +34,7 @@ function addSight(){
     inputCity.placeholder ="City"
     card.append(inputCity);
 
-    const inputDescription = document.createElement("input");
+    const inputDescription = document.createElement("textarea");
     inputDescription.id = 'inputDescription';
     inputDescription.setAttribute("type", "text");
     inputDescription.placeholder ="Description"
@@ -56,7 +56,5 @@ function addSight(){
 
     page.append(logo);
     page.append(card);
-    
-    
 
 }
