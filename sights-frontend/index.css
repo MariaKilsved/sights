@@ -2,6 +2,7 @@
     position: absolute;
     bottom: 0;
     width: 110vw;
+    z-index: -1;
 }
 
 #page{

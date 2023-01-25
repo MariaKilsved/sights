@@ -13,8 +13,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         const passwordAccount = document.getElementById('input-password').value;
         const confirmPassword = document.getElementById('input-confirmpassword').value;
 
-
-
         if (passwordAccount === confirmPassword){
             //window.location.href='/'
             const response = await post(`https://localhost:7260/api/User?`,{username: accountname,password: confirmPassword});
@@ -71,5 +69,4 @@ function register(){
     buttonContainer.append(regbtn);
     buttonContainer.append(canbtn);
     card.append(buttonContainer);
-
 }

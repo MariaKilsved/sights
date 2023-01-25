@@ -66,13 +66,14 @@ async function logIn(){
 
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container';
+    
     const logbtn = loginBtn('button');
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
-    
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
+
     buttonContainer.append(logbtn);
     buttonContainer.append(signbtn);
     card.append(buttonContainer);
