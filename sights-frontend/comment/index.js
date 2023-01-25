@@ -4,6 +4,8 @@ import Menu from "../components/Menu.js";
 import Sight from "../components/Sight.js";
 import CommentBox from '../components/CommentBox.js'
 import AddCommentBox from "../components/AddCommentBox.js";
+import {post} from '../lib/request.js';
+import commentSamplePostData from './mock-data/MockData.js'
 
 let upVoteNr = 0;
 let downVoteNr = 0;
@@ -13,7 +15,7 @@ let canDownVote = true;
 
 window.addEventListener("DOMContentLoaded", async () => {
     render();
-
+    console.log(commentSamplePostData);
     const upVote = document.getElementById('likesUpIMG');
     upVote.addEventListener('click', async () => {
         let upVote = document.getElementById('likesUp');
@@ -53,6 +55,13 @@ window.addEventListener("DOMContentLoaded", async () => {
         //send addcommenttext.value as input to CommentBox function
         const newComment = CommentBox(addCommentText.value);
         commentContainer.appendChild(newComment);
+        
+        commentSamplePostData.content = addCommentText.value;
+        console.log(commentSamplePostData)
+        const response = await post(`https://localhost:7260/api/comment`, commentSamplePostData);
+
+        console.log(response);
+
         addCommentText.value = '';
     })
 });
