@@ -142,5 +142,33 @@ namespace sights.Controllers
         {
             return (_context.Attractions?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+        //By city id
+        [HttpGet("ByCity/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<IEnumerable<Attraction>>> GetByCity(long? id)
+        {
+            if (_context.Attractions == null)
+            {
+                return NotFound("Context is null");
+            }
+            if(id == null)
+            {
+                return BadRequest("City id is null");
+            }
+
+            var attractions = await _context.Attractions.Where(a => a.CityId == id).ToListAsync(); //This is city id
+
+            if (!attractions.Any())
+            {
+                return NotFound("No attraction was found in this city.");
+            }
+
+            return attractions;
+        }
     }
 }
