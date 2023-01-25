@@ -10,11 +10,11 @@ export default function Menu(){
     buttonContainer.id = 'button-container';
 
     const logIn = primaryButton('a');
-    logIn.innerHTML = 'login';
+    logIn.innerHTML = 'Login';
     logIn.href = '/login'
     
     const signup = secondaryButton('a');
-    signup.innerHTML = 'signup';
+    signup.innerHTML = 'Sign up';
     signup.href = '/register'
 
     const logo = icon();
