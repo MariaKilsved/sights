@@ -3,9 +3,14 @@ import Menu from './components/Menu.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     render();
+
+
 });
 
+
+
 function render(){
+    
     const page = document.getElementById('page');
     const menu = Menu();
 
@@ -13,9 +18,9 @@ function render(){
     bg.id = 'bg'
     bg.src = './icons/bg.svg'
 
+
     page.append(menu);
     page.append(bg);
 }
-
 
 

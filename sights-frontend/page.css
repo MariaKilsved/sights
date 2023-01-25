@@ -20,6 +20,9 @@ h1,h2{
     align-items: center;
     padding-top: 100px;
 }
+#searchBar {
+    width: 500px;
+}
 
 #logo{
     width: 68px;

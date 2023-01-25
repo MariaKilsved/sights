@@ -16,8 +16,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
         if (passwordAccount === confirmPassword){
-            window.location.href='/'
-            const response = await post(`https://localhost:7260/api/User`,{username: accountname,password: confirmPassword});
+            //window.location.href='/'
+            const response = await post(`https://localhost:7260/api/User?`,{username: accountname,password: confirmPassword});
         }
         else
         {
