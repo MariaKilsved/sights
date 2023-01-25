@@ -34,17 +34,19 @@ namespace sights.Controllers
 
         // GET: api/City/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<City>> GetCity(long id)
         {
           if (_context.Cities == null)
           {
-              return NotFound();
+              return NotFound("Context was null");
           }
             var city = await _context.Cities.FindAsync(id);
 
             if (city == null)
             {
-                return NotFound();
+                return NotFound("City did not exist");
             }
 
             return city;
@@ -87,7 +89,6 @@ namespace sights.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-
         public async Task<ActionResult<City>> PostCity(City city)
         {
 
