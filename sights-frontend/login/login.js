@@ -7,7 +7,7 @@ import {get} from '../lib/request.js';
     
 
 window.addEventListener("DOMContentLoaded", async () => {
-    logIn();
+    render();
 
     const logbtn = document.getElementById('log-btn');
 
@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-async function logIn(){
+async function render(){
     const page = document.getElementById('page');
     const card = Card();
     

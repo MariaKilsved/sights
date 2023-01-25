@@ -5,7 +5,7 @@ import registerBtn from "../components/primaryButton.js";
 import cancelBtn from "../components/secondaryButton.js";
 import {post} from '../lib/request.js'
 window.addEventListener("DOMContentLoaded", async () => {
-    register();
+    render();
 
     const regbtn = document.getElementById('reg-btn');
     regbtn.addEventListener('click', async()=>{
@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
-function register(){
+function render(){
     const page = document.getElementById('page');
     const card = Card();
     
