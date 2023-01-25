@@ -35,7 +35,7 @@ export default function Sight(){
 
 
     likesContainer.appendChild(likesUpContainer);
-    likesContainer.appendChild(likesDownContainer)
+    likesContainer.appendChild(likesDownContainer);
     card.append(likesContainer);
 
     return card;

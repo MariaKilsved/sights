@@ -5,10 +5,11 @@ body {
 
 #commentContainer{
   width: 40%;
-  height: 44%;
+  max-height: 38%;
   overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 10px;
     filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.25));
-
 }
 
 .container {
@@ -18,7 +19,6 @@ body {
     margin-top: 1em;
     width: fit-content;
     height: fit-content;
-
 }
 
 div {
@@ -27,7 +27,7 @@ div {
 
 .container img {
   float: left;
-  max-width: 60px;
+  max-width: 36px;
   width: 20%;
   margin-right: 40px;
   border-radius: 50%;
@@ -53,11 +53,8 @@ div {
 
 .container p {
   font-weight: bolder;
-    display: block;
-    overflow-x: auto;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    overflow-x: hidden;
     color: #1F4E5C;
+        overflow-wrap: break-word;
+
 }
