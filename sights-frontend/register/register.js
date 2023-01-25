@@ -5,7 +5,7 @@ import registerBtn from "../components/primaryButton.js";
 import cancelBtn from "../components/secondaryButton.js";
 import {post} from '../lib/request.js'
 window.addEventListener("DOMContentLoaded", async () => {
-    register();
+    render();
 
     const regbtn = document.getElementById('reg-btn');
     regbtn.addEventListener('click', async()=>{
@@ -14,8 +14,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         const confirmPassword = document.getElementById('input-confirmpassword').value;
 
         if (passwordAccount === confirmPassword){
-            //window.location.href='/'
+            
             const response = await post(`https://localhost:7260/api/User?`,{username: accountname,password: confirmPassword});
+            window.location.href='/'
+          
         }
         else
         {
@@ -25,7 +27,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
-function register(){
+function render(){
     const page = document.getElementById('page');
     const card = Card();
     

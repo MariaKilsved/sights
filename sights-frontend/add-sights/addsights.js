@@ -6,10 +6,10 @@ import createBtn from "../components/primaryButton.js";
 import cancelBtn from "../components/secondaryButton.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
-    addSight();
+    render();
 });
 
-function addSight(){
+function render(){
     const page = document.getElementById('page');
     const card = Card();
    
