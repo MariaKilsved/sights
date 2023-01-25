@@ -4,9 +4,34 @@ import Card from "../components/Card.js";
 import icon from '../components/logo.js';
 import createBtn from "../components/primaryButton.js";
 import cancelBtn from "../components/secondaryButton.js";
+import {post} from '../lib/request.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     render();
+    const creBtn = document.getElementById('cre-btn');
+    creBtn.addEventListener('click', async()=>{
+        const ititle = document.getElementById('input-title').value;
+        const icountry = document.getElementById('input-country').value;
+        const icity = document.getElementById('input-city').value;
+        const idescription = document.getElementById('inputDescription').value;
+
+        const response = await post(`https://localhost:7260/api/Attraction?`,{userId: 5, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription});
+        console.log(response);
+        //window.location.href='/'
+
+       /* if (passwordAccount === confirmPassword){
+            
+            const response = await post(`https://localhost:7260/api/Attraction?`,{title: title,country: country,city:city,description:description});
+            window.location.href='/'
+          
+        }
+        else
+        {
+            window.alert('Password is not the same')
+        }*/
+
+    })
+
 });
 
 function render(){
@@ -20,16 +45,19 @@ function render(){
     card.append(addSight)
 
     const inputTitle= document.createElement("input");
+    inputTitle.id ='input-title';
     inputTitle.setAttribute("type", "text");
     inputTitle.placeholder ="Title"
     card.append(inputTitle);
 
     const inputCountry = document.createElement("input");
+    inputCountry.id ='input-country';
     inputCountry.setAttribute("type", "text");
     inputCountry.placeholder ="Country"
     card.append(inputCountry);
 
     const inputCity = document.createElement("input");
+    inputCity.id ='input-city';
     inputCity.setAttribute("type", "text");
     inputCity.placeholder ="City"
     card.append(inputCity);
