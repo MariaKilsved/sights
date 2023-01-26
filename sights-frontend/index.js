@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       const link = document.createElement('a');
       link.className = 'link';
       link.innerHTML = country.name;
-      link.href = `/sights/?id=${country.id}`;
+      link.href = `/sights/?location=${country.name}`;
 
       name.append(link);
       row.append(name);
@@ -47,7 +47,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       const link = document.createElement('a');
       link.className = 'link';
       link.innerHTML = city.name;
-      link.href = `/sights/?id=${city.id}`;
+      link.href = `/sights/?location=${city.name}`;
 
       name.append(link);
       row.append(name);
