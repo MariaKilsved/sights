@@ -19,18 +19,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         console.log(response);
         //window.location.href='/'
 
-       /* if (passwordAccount === confirmPassword){
-            
-            const response = await post(`https://localhost:7260/api/Attraction?`,{title: title,country: country,city:city,description:description});
-            window.location.href='/'
-          
-        }
-        else
-        {
-            window.alert('Password is not the same')
-        }*/
-
-    })
+     })
 
 });
 
