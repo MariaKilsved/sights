@@ -90,6 +90,10 @@ namespace sights.Controllers
           {
               return Problem("Entity set 'SqliteContext.SubComments'  is null.");
           }
+
+
+          //When doing this later do string.IsNullOrWhitespace here
+
             _context.SubComments.Add(subComment);
             await _context.SaveChangesAsync();
 
