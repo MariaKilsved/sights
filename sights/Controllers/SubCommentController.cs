@@ -81,18 +81,33 @@ namespace sights.Controllers
             return NoContent();
         }
 
-        // POST: api/SubComment
+        // POST: api/SubComment/{id}
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<SubComment>> PostSubComment(SubComment subComment)
         {
           if (_context.SubComments == null)
           {
               return Problem("Entity set 'SqliteContext.SubComments'  is null.");
           }
+            if (subComment.UserId == null)
+            {
+                return BadRequest("userId is null");
 
+            }
 
-          //When doing this later do string.IsNullOrWhitespace here
+            if(subComment.CommentId == null)
+            {
+                return NotFound("A subcomment must be attached to a main comment");
+            }
+
+            if (string.IsNullOrWhiteSpace(subComment.Content))
+            {
+                return BadRequest("You must write something");
+            }
 
             _context.SubComments.Add(subComment);
             await _context.SaveChangesAsync();
