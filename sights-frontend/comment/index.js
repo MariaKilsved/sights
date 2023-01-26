@@ -52,15 +52,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     sendMessageBtn.addEventListener('click', async () => {
         const commentContainer = document.getElementById('commentContainer');
         const addCommentText = document.getElementById('addCommentBox');
-        //send addcommenttext.value as input to CommentBox function
+       
         const newComment = CommentBox(addCommentText.value);
         commentContainer.appendChild(newComment);
-        
         commentSamplePostData.content = addCommentText.value;
-        console.log(commentSamplePostData)
-        const response = await post(`https://localhost:7260/api/comment`, commentSamplePostData);
 
-        console.log(response);
+        await post(`https://localhost:7260/api/comment`, commentSamplePostData);
 
         addCommentText.value = '';
     })

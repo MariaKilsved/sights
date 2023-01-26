@@ -11,12 +11,13 @@
 #addCommentBox {
     border-radius: 5px;
     height: auto;
-    width: 80%;
+    width: 85%;
     height: 100%;
     resize: none;
     border-color: rgb(149, 232, 217);
      filter: drop-shadow(0px 8px 8px rgba(149, 232, 217, 0.8));
     outline: none;
+    padding: 10px;
 }
 
 #addCommentBox:focus {
@@ -26,8 +27,7 @@
 #sendMessageBtn {
     height: 20px;
     width: 60px;
-    margin-left: 1%;
-    
+    margin-left: 1%; 
 }
 
 
