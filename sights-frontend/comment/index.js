@@ -14,8 +14,7 @@ let canUpVote = true;
 let canDownVote = true;
 
 window.addEventListener("DOMContentLoaded", async () => {
-    render();
-    console.log(commentSamplePostData);
+   await render();
     const upVote = document.getElementById('likesUpIMG');
     upVote.addEventListener('click', async () => {
         let upVote = document.getElementById('likesUp');
@@ -72,24 +71,27 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
-function render(){
+async function render(){
+    const comments = await get(`https://localhost:7260/api/Comment`);
+    const likes = await get(`https://localhost:7260/api/Like`);
+    const queryString = window.location.search;
+    const attractionId = new URLSearchParams(queryString).get('id');
     
     const page = document.getElementById('page');
     const menu = Menu();
-    const sight = Sight();
+    const sight = Sight(likes, attractionId);
     const addCommentBox = AddCommentBox();
 
     const commentContainer = document.createElement('div');
     commentContainer.id = 'commentContainer';
 
+    for (let i = 0; i < comments.length; i++){
+        if (comments[i].attractionId == attractionId){
+            const commentBox = CommentBox(comments[i].content);
+            commentContainer.append(commentBox);
+        }
+    }
 
-    
-
-    const commentBox = CommentBox('placeholder');
-    const com2 = CommentBox('placeholder');
-
-    commentContainer.append(commentBox);
-    commentContainer.append(com2);
 
     page.append(menu);
     page.append(sight);
