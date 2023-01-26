@@ -207,7 +207,9 @@ namespace sights.Controllers
             return attractions;
         }
 
+
         // GET: api/Attraction/ByLikes
+        /*
         [HttpGet("ByLikes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -248,6 +250,7 @@ namespace sights.Controllers
                                           group al by al.AttractionId).ToList();
             */
 
+        /*
             var groupedAttractionLikes = (from al in attractionLikes
                                           group al by al.AttractionId)
                                           .Select(group => new { Id = group.Key,  Items = group.ToList()})
@@ -258,5 +261,6 @@ namespace sights.Controllers
 
             return attractions;
         }
+    */
     }
 }
