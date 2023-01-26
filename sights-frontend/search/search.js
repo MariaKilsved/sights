@@ -17,6 +17,8 @@ function render(sights, countries, cities, searchVal){
     const page = document.getElementById('page');
     const menu = Menu();
 
+    const card = Card();
+
     const searchTable = document.createElement('table');
     searchTable.id = 'search-table';
 
@@ -76,5 +78,6 @@ function render(sights, countries, cities, searchVal){
     }
 
     page.append(menu);
-    page.append(searchTable);
+    card.append(searchTable);
+    page.append(card);
 }
