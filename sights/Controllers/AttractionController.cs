@@ -56,14 +56,17 @@ namespace sights.Controllers
             return attraction;
         }
 
-        // PUT: api/Attraction/5
+        // PUT: api/Attraction/5,this is to update
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutAttraction(long id, Attraction attraction)
         {
             if (id != attraction.Id)
             {
-                return BadRequest();
+                return BadRequest("Please type in Id");
             }
 
             _context.Entry(attraction).State = EntityState.Modified;
@@ -76,7 +79,7 @@ namespace sights.Controllers
             {
                 if (!AttractionExists(id))
                 {
-                    return NotFound();
+                    return NotFound("did not found any id");
                 }
                 else
                 {
@@ -84,7 +87,8 @@ namespace sights.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok("Sucessfully updated!");
+
         }
 
         // POST: api/Attraction

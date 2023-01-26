@@ -1,4 +1,19 @@
-export default function Sight(){
+export default function Sight(likesCount, attractionId){
+
+    console.log(likesCount, attractionId);
+
+    let upVotes = 0
+    let downVotes = 0;
+
+    for (let i = 0; i < likesCount.length; i++){
+        if (likesCount[i].attractionId == attractionId){
+            if (likesCount[i].like1 === 0){
+                downVotes++;
+            }
+            else upVotes++;
+        }
+    }
+
     const card = document.createElement('div');
     card.id = 'sight';
 
@@ -14,7 +29,7 @@ export default function Sight(){
 
     const likesUp = document.createElement('p');
     likesUp.id = 'likesUp';
-    likesUp.innerHTML = 0;
+    likesUp.innerHTML = upVotes.toString();
 
     likesUpContainer.append(likesUp);
     likesUpContainer.append(likeUpIMG);
@@ -28,7 +43,7 @@ export default function Sight(){
         
     const likesDown = document.createElement('p');
     likesDown.id = 'likesDown';
-    likesDown.innerHTML = 0;
+    likesDown.innerHTML = downVotes.toString();
 
     likesDownContainer.append(likeDownIMG);
     likesDownContainer.append(likesDown);
@@ -37,6 +52,7 @@ export default function Sight(){
     likesContainer.appendChild(likesUpContainer);
     likesContainer.appendChild(likesDownContainer);
     card.append(likesContainer);
+
 
     return card;
 }
