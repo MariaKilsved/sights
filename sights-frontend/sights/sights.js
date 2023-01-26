@@ -12,12 +12,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     console.log(location);
     render(location,sights,countries,cities);
 
-
-    
 });
 
 
-function render(location,sights){
+function render(location){
 
   
     const page = document.getElementById('page');
@@ -26,19 +24,7 @@ function render(location,sights){
     name.innerHTML=location;
 
     
-    sights.forEach((attraction) => {
-        const row = document.createElement('tr')
-        
-        const title = document.createElement('td');
-        const link = document.createElement('a');
-        link.className = 'link';
-        link.innerHTML = attraction.title;
-        link.href = `/comment/?id=${attraction.id}`;
-        
-        title.append(link);
-        row.append(title);
-        sights.append(row);
-    });
+
 
   
 
