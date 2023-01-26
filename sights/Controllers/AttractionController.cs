@@ -101,12 +101,12 @@ namespace sights.Controllers
             _context.Attractions.Add(attraction);
             await _context.SaveChangesAsync();
 
-            if (attraction.Title == null)
+            if (string.IsNullOrWhiteSpace(attraction.Title))
             {
                 return BadRequest("Attraction must have a title");
             }
 
-            if (attraction.Description == null)
+            if (string.IsNullOrWhiteSpace(attraction.Description))
             {
                 return BadRequest("Attraction must have a description");
             }

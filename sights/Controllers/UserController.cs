@@ -142,10 +142,11 @@ namespace sights.Controllers
         }
 
         [HttpGet("Login")]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<ActionResult<long>> Login(string username, string password)
+            
         {
             if (_context.Users == null)
             {
@@ -168,7 +169,8 @@ namespace sights.Controllers
                 return BadRequest("Password is incorrect.");
             }
 
-            return NoContent();
+            return Users2.First().Id;
+           
 
         }
     }
