@@ -37,7 +37,6 @@ html,body{
     outline: none;
 }
 
-
 #search-btn{
     padding: 10px;
     font-size: 12px;
@@ -45,6 +44,10 @@ html,body{
     color: #002F3E;
     text-decoration: none;
     border-radius: 10px;
+}
+
+#search-btn:hover{
+    background-color: #86d2c4;
 }
 
 #search-results{
