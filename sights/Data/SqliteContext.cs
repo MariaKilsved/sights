@@ -39,6 +39,8 @@ public partial class SqliteContext : DbContext
 
         modelBuilder.Entity<City>(entity =>
         {
+            entity.HasIndex(e => e.Name, "IX_Cities_Name").IsUnique();
+
             entity.HasOne(d => d.Country).WithMany(p => p.Cities).HasForeignKey(d => d.CountryId);
 
             entity.HasOne(d => d.User).WithMany(p => p.Cities).HasForeignKey(d => d.UserId);
@@ -53,6 +55,8 @@ public partial class SqliteContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
+            entity.HasIndex(e => e.Name, "IX_Countries_Name").IsUnique();
+
             entity.HasOne(d => d.User).WithMany(p => p.Countries).HasForeignKey(d => d.UserId);
         });
 
@@ -70,6 +74,11 @@ public partial class SqliteContext : DbContext
             entity.HasOne(d => d.Comment).WithMany(p => p.SubComments).HasForeignKey(d => d.CommentId);
 
             entity.HasOne(d => d.User).WithMany(p => p.SubComments).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasIndex(e => e.Username, "IX_Users_Username").IsUnique();
         });
 
         OnModelCreatingPartial(modelBuilder);

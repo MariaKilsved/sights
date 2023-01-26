@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     console.log(sights, countries, cities)    
     render();
 
-    const search = document.getElementById('search');
     const searchResults = document.getElementById('search-results');
     const attractionTable = document.createElement('table');
     attractionTable.id = 'attraction-table';
@@ -19,55 +18,70 @@ window.addEventListener("DOMContentLoaded", async () => {
         const row = document.createElement('tr')
         
         const title = document.createElement('td');
-        title.innerHTML = attraction.title;
+        const link = document.createElement('a');
+        link.className = 'link';
+        link.innerHTML = attraction.title;
+        link.href = `/comment/?id=${attraction.id}`;
         
-        const country = document.createElement('td');
-        countries.forEach((c) => {
-            if(attraction.countryId === c.id){
-                country.innerHTML = c.name;
-            }
-        });
-        
-        const city = document.createElement('td');
-        cities.forEach((c) => {
-            if(attraction.cityId === c.id){
-                city.innerHTML = c.name;
-            }
-        });
-        
+        title.append(link);
         row.append(title);
-        row.append(country);
-        row.append(city);
-        
         attractionTable.append(row);
     });
+    countries.forEach((country) => {
+      const row = document.createElement('tr')
+        
+      const name = document.createElement('td');
+      const link = document.createElement('a');
+      link.className = 'link';
+      link.innerHTML = country.name;
+      link.href = `/sights/?id=${country.id}`;
+
+      name.append(link);
+      row.append(name);
+      attractionTable.append(row);
+    })
+    cities.forEach((city) => {
+      const row = document.createElement('tr')
+        
+      const name = document.createElement('td');
+      const link = document.createElement('a');
+      link.className = 'link';
+      link.innerHTML = city.name;
+      link.href = `/sights/?id=${city.id}`;
+
+      name.append(link);
+      row.append(name);
+      attractionTable.append(row);
+    })
 
     searchResults.append(attractionTable);
 
     search.addEventListener('input', () => {
-        console.log(search.value)
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("search");
+      console.log(input.value)
+      if(input.value !== ""){
+         searchResults.style.display = ""
+      } else {
+        searchResults.style.display = "none"
+      }
+      filter = input.value.toUpperCase();
+      table = document.getElementById("attraction-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     })
 
 });
-
-function myFunction() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("search");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("attraction-table");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[0];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }       
-    }
-  }
 
 function render(){
     
@@ -77,9 +91,11 @@ function render(){
     const search = document.createElement('input');
     search.type = 'text';
     search.id = 'search';
+    search.placeholder = 'Sök plats...';
 
     const searchResults = document.createElement('div');
     searchResults.id = 'search-results';
+    searchResults.style.display = 'none';
 
     const bg = document.createElement('img');
     bg.id = 'bg';
