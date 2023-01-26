@@ -162,7 +162,7 @@ namespace sights.Controllers
             }
 
             //Testing for both username and password
-            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username).ToListAsync();
 
             if (!Users2.Any())
             {
