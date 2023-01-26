@@ -73,7 +73,7 @@ async function render(){
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container';
     
-    const logbtn = loginBtn('a');
+    const logbtn = loginBtn('button');
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
