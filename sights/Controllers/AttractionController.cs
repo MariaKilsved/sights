@@ -23,7 +23,7 @@ namespace sights.Controllers
 
         // GET: api/Attraction
         [HttpGet]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<Attraction>>> GetAttractions()
         {
@@ -36,7 +36,7 @@ namespace sights.Controllers
 
         // GET: api/Attraction/5
         [HttpGet("{id}")]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<Attraction>> GetAttraction(long id)
         {
