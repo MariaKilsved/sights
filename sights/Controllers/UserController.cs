@@ -145,7 +145,7 @@ namespace sights.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<User>> Login(string username, string? password)
+        public async Task<ActionResult<User>> Login(string username, string password)
             
         {
             if (_context.Users == null)
@@ -161,17 +161,15 @@ namespace sights.Controllers
                 return NotFound("Username is incorrect or user does not exist.");
             }
 
-            /*
             //Testing for both username and password
-            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
 
             if (!Users2.Any())
             {
                 return BadRequest("Password is incorrect.");
             }
-            */
 
-            return Users1.First();
+            return Users2.First();
            
 
         }
