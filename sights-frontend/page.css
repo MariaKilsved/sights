@@ -35,3 +35,14 @@ h1,h2{
     left: 5px;
 }
 
+#search-table{
+    width: 100%;
+    padding: 20px;
+    width: 70vw;
+}
+
+.link{
+    text-decoration: none;
+    color: #002F3E;
+}
+

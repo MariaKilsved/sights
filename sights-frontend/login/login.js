@@ -31,7 +31,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         console.log(decodedDataBasePW);
 
         if(decodedDataBasePW === decodedInputPassword){
-        const userInfo = {userId: response.id, username};
+        const userInfo = {userId: response.id, username: username};
 
         localStorage.setItem('userinfo', JSON.stringify(userInfo))
         window.alert(`Welcome ${username}`)
@@ -50,6 +50,7 @@ async function render(){
     const card = Card();
     
     const login = document.createElement('p');
+    login.id='log-in'
     login.innerHTML = 'Login';
     card.append(login)
 
@@ -72,7 +73,7 @@ async function render(){
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container';
     
-    const logbtn = loginBtn('button');
+    const logbtn = loginBtn('a');
     const signbtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
