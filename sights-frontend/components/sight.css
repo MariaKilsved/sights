@@ -10,7 +10,6 @@
     border-radius: 10px;
     width: 40%;
     height: 274px;
-    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.25));
     position: relative;
 }
 
@@ -32,13 +31,6 @@
     display: flex;
     margin-right: 1%;
 }
-
-#likesDownContainer p {
-}
-
-#likesUpContainer p {
-}
-
 
 #likesUpContainer img, #likesDownContainer img{
     height: 60%;
