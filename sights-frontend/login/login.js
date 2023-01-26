@@ -50,6 +50,7 @@ async function render(){
     const card = Card();
     
     const login = document.createElement('p');
+    login.id='log-in'
     login.innerHTML = 'Login';
     card.append(login)
 
