@@ -15,17 +15,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
-        const encryptedPassword = CryptoJS.AES.encrypt(password, username);
+        const encryptedPassword = CryptoJS.AES.encrypt(password, username).toString();
         const decryptedPassword = CryptoJS.AES.decrypt(encryptedPassword, username);
         const decryptedToString = decryptedPassword.toString(CryptoJS.enc.Utf8);
 
-        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
-
-        console.log(`Lösenord:\n ${password}\n
-                           Krypterat lösenord:\n ${encryptedPassword}\n
-                           Dekrypterat lösenord:\n ${decryptedPassword}\n
-                           Dekrypterat lösenord i text:\n ${decryptedToString}\n`);
-
+        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${encryptedPassword}`);
 
         if(response.status === 204){
             localStorage.setItem('username', username)
