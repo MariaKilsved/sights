@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Frameworks;
+using sights.Models;
 using sqlite.Data;
 using sqlite.Models;
 
@@ -204,5 +206,61 @@ namespace sights.Controllers
 
             return attractions;
         }
+
+
+        // GET: api/Attraction/ByLikes
+        /*
+        [HttpGet("ByLikes")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<AttractionLike>>> ByLikes()
+        {
+            if (_context.Attractions == null)
+            {
+                return NotFound("Attractions context was null");
+            }
+
+            if (_context.Likes == null)
+            {
+                return NotFound("Likes context was null");
+            }
+
+            List<AttractionLike> attractionLikes;
+
+            using (var context = _context) {
+                attractionLikes = await _context.Attractions.Join(_context.Likes,
+                a => a.Id,
+                l => l.AttractionId, (a, l) => new AttractionLike
+                {
+                    AttractionId = a.Id,
+                    Coordinates = a.Coordinates,
+                    Title = a.Title,
+                    Description = a.Description,
+                    UserId = a.UserId,
+                    Picture = a.Picture,
+                    CountryId = a.CountryId,
+                    CityId = a.CityId,
+                    LikeId = l.Id,
+                    Like1 = l.Like1
+                }).ToListAsync();
+            }
+
+            /*
+            var groupedAttractionLikes = (from al in attractionLikes 
+                                          group al by al.AttractionId).ToList();
+            */
+
+        /*
+            var groupedAttractionLikes = (from al in attractionLikes
+                                          group al by al.AttractionId)
+                                          .Select(group => new { Id = group.Key,  Items = group.ToList()})
+                                          .ToList();
+
+
+
+
+            return attractions;
+        }
+    */
     }
 }
