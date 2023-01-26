@@ -1,6 +1,8 @@
 'use strict';
 
 import Card from "../components/Card.js";
+
+import Menu from '../components/Menu.js';
 import icon from '../components/logo.js';
 import createBtn from "../components/primaryButton.js";
 import cancelBtn from "../components/secondaryButton.js";
@@ -15,7 +17,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         const icity = document.getElementById('input-city').value;
         const idescription = document.getElementById('inputDescription').value;
 
-        const response = await post(`https://localhost:7260/api/Attraction?`,{userId: 5, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription});
+        const user = JSON.parse(window.localStorage.getItem('userinfo'));
+        if(user){
+            console.log(user);
+        }
+
+        const response = await post(`https://localhost:7260/api/Attraction?`,{userId: user.userid, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription});
         console.log(response);
         //window.location.href='/'
 
@@ -26,7 +33,9 @@ window.addEventListener("DOMContentLoaded", async () => {
 function render(){
     const page = document.getElementById('page');
     const card = Card();
-   
+    const menu = Menu();
+
+    
     const logo = icon(); 
     logo.className = 'logoClass' ;
     const addSight = document.createElement('p2');
@@ -70,8 +79,9 @@ function render(){
     buttonContainer.append(backBtn);
     card.append(buttonContainer);
  
-
-    page.append(logo);
+    page.append(menu);
+    //page.append(logo);
     page.append(card);
+   
 
 }
