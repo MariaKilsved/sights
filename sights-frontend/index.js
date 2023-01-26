@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const sights = await fetch('https://localhost:7260/api/Attraction').then(res => res.json());
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());
     const cities = await fetch('https://localhost:7260/api/City').then(res => res.json());
-    console.log(sights, countries, cities)    
+
     render();
 
     const searchResults = document.getElementById('search-results');
@@ -59,7 +59,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     search.addEventListener('input', () => {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById("search");
-      console.log(input.value)
       if(input.value !== ""){
          searchResults.style.display = ""
       } else {
@@ -81,6 +80,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     })
 
+    const searchBtn = document.getElementById('search-btn');
+    searchBtn.addEventListener('click', () => {
+      searchBtn.href = `/search/?value=${search.value}`
+    });
 });
 
 function render(){
@@ -88,10 +91,18 @@ function render(){
     const page = document.getElementById('page');
     const menu = Menu();
 
+    const searchBarContainer = document.createElement('div');
+    searchBarContainer.id = 'search-bar-container';
+
     const search = document.createElement('input');
     search.type = 'text';
     search.id = 'search';
     search.placeholder = 'Sök plats...';
+
+    const searchBtn = document.createElement('a');
+    searchBtn.id = 'search-btn'
+    searchBtn.innerHTML = 'sök'
+    searchBtn.href = '/search/?value='
 
     const searchResults = document.createElement('div');
     searchResults.id = 'search-results';
@@ -102,7 +113,9 @@ function render(){
     bg.src = './icons/bg.svg';
 
     page.append(menu);
-    page.append(search);
+    searchBarContainer.append(search);
+    searchBarContainer.append(searchBtn);
+    page.append(searchBarContainer);
     page.append(searchResults);
     page.append(bg);
 }

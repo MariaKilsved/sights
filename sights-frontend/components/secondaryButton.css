@@ -10,6 +10,9 @@
     color: #1F4E5C;
     font-size: 12px;
     font-weight: 600;
-    border: 1px solid #1F4E5C;
+    border: 1px solid #bac1c3;
+}
 
+.secondary-btn:hover{
+    background-color: #bac1c3;
 }
