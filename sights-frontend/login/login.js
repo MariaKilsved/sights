@@ -15,20 +15,25 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
-        const encryptedPassword = CryptoJS.AES.encrypt(password, username);
-        const decryptedPassword = CryptoJS.AES.decrypt(encryptedPassword, username);
-        const decryptedToString = decryptedPassword.toString(CryptoJS.enc.Utf8);
+        
+        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}`);
+        
+        console.log(response.password);
+        
+        const decryptDataBasePW = CryptoJS.AES.decrypt(response.password, username);
+        const decodedDataBasePW = decryptDataBasePW.toString(CryptoJS.enc.Utf8);
+        
+        const encryptInputPassword = CryptoJS.AES.encrypt(password, username).toString();
+        const decryptInputPassword = CryptoJS.AES.decrypt(encryptInputPassword, username);
+        const decodedInputPassword = decryptInputPassword.toString(CryptoJS.enc.Utf8);
 
-        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}&password=${password}`);
+        console.log(decodedInputPassword);
+        console.log(decodedDataBasePW);
 
-        console.log(`Lösenord:\n ${password}\n
-                           Krypterat lösenord:\n ${encryptedPassword}\n
-                           Dekrypterat lösenord:\n ${decryptedPassword}\n
-                           Dekrypterat lösenord i text:\n ${decryptedToString}\n`);
+        if(decodedDataBasePW === decodedInputPassword){
+        const userInfo = {userId: response.id, username};
 
-
-        if(response.status === 204){
-            localStorage.setItem('username', username)
+        localStorage.setItem('userinfo', JSON.stringify(userInfo))
         window.alert(`Welcome ${username}`)
         window.location.href='/'
         } else {

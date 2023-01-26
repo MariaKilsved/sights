@@ -4,7 +4,7 @@ import Menu from "../components/Menu.js";
 import Sight from "../components/Sight.js";
 import CommentBox from '../components/CommentBox.js'
 import AddCommentBox from "../components/AddCommentBox.js";
-import {post} from '../lib/request.js';
+import { post, get } from '../lib/request.js';
 import commentSamplePostData from './mock-data/MockData.js'
 
 let upVoteNr = 0;
@@ -52,12 +52,21 @@ window.addEventListener("DOMContentLoaded", async () => {
     sendMessageBtn.addEventListener('click', async () => {
         const commentContainer = document.getElementById('commentContainer');
         const addCommentText = document.getElementById('addCommentBox');
-       
         const newComment = CommentBox(addCommentText.value);
         commentContainer.appendChild(newComment);
         commentSamplePostData.content = addCommentText.value;
 
-        await post(`https://localhost:7260/api/comment`, commentSamplePostData);
+        const storedUser = JSON.parse(localStorage.getItem('userinfo'));
+        const queryString = window.location.search;
+        const attractionId = new URLSearchParams(queryString).get('id');
+
+        const comment = {
+                userId: storedUser.userId,
+                content: addCommentText.value,
+                attractionId: attractionId,
+        }   
+
+         await post(`https://localhost:7260/api/comment`, comment);
 
         addCommentText.value = '';
     })
@@ -72,6 +81,9 @@ function render(){
 
     const commentContainer = document.createElement('div');
     commentContainer.id = 'commentContainer';
+
+
+    
 
     const commentBox = CommentBox('placeholder');
     const com2 = CommentBox('placeholder');

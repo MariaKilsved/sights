@@ -25,17 +25,21 @@ namespace sights.Controllers
 
         // GET: api/Attraction
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<Attraction>>> GetAttractions()
         {
           if (_context.Attractions == null)
           {
-              return NotFound();
+              return NotFound("No attractions to show yet");
           }
             return await _context.Attractions.ToListAsync();
         }
 
         // GET: api/Attraction/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Attraction>> GetAttraction(long id)
         {
           if (_context.Attractions == null)
@@ -46,7 +50,7 @@ namespace sights.Controllers
 
             if (attraction == null)
             {
-                return NotFound();
+                return NotFound("That attraction does not exist");
             }
 
             return attraction;
