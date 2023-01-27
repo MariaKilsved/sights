@@ -1,14 +1,21 @@
 'use strict';
+
 import Menu from './components/Menu.js';
+import primaryButton from './components/primaryButton.js';
 import {get} from './lib/request.js';
 
 window.addEventListener("DOMContentLoaded", async () => {
+
+    const user = JSON.parse(window.localStorage.getItem('userinfo'));
+    console.log(user);
 
     const sights = await fetch('https://localhost:7260/api/Attraction').then(res => res.json());
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());
     const cities = await fetch('https://localhost:7260/api/City').then(res => res.json());
 
-    render();
+    console.log(sights)
+
+    render(user);
 
     const searchResults = document.getElementById('search-results');
     const attractionTable = document.createElement('table');
@@ -86,10 +93,19 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-function render(){
+function render(user){
     
     const page = document.getElementById('page');
     const menu = Menu();
+
+    if(user ){
+      const addBtn = primaryButton('a');
+      addBtn.innerHTML='Add sight';
+      addBtn.href='/add-sights'
+      page.append(addBtn);
+    }
+    
+
 
     const searchBarContainer = document.createElement('div');
     searchBarContainer.id = 'search-bar-container';

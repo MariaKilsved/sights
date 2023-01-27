@@ -1,7 +1,4 @@
 export default function Sight(likesCount, attractionId){
-
-    console.log(likesCount, attractionId);
-
     let upVotes = 0
     let downVotes = 0;
 

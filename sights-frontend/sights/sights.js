@@ -54,9 +54,20 @@ function render(location, sights, countries, cities){
                 const title = document.createElement('td');
                 const link = document.createElement('a');
                 link.className = 'link';
-                link.innerHTML = sight.title;
                 link.href = `/comment/?id=${sight.id}`;
-        
+
+                const linkTitle = document.createElement('p');
+                linkTitle.id='linkTitle';
+                linkTitle.innerHTML=sight.title;
+                
+
+                const description = document.createElement('p');
+                description.id='description';
+                description.innerHTML=sight.description;
+                
+
+              
+                link.append(linkTitle, description);
                 title.append(link);
                 row.append(title);
                 searchTable.append(row);
@@ -68,9 +79,18 @@ function render(location, sights, countries, cities){
                 const title = document.createElement('td');
                 const link = document.createElement('a');
                 link.className = 'link';
-                link.innerHTML = sight.title;
                 link.href = `/comment/?id=${sight.id}`;
+                
+                const linkTitle = document.createElement('p');
+                linkTitle.id='linkTitle';
+                linkTitle.innerHTML=sight.title;
+
+
+                const description = document.createElement('p');
+                description.id='description';
+                description.innerHTML=sight.description;
         
+                link.append(linkTitle, description);
                 title.append(link);
                 row.append(title);
                 searchTable.append(row);
