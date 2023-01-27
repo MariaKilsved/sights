@@ -94,10 +94,10 @@ namespace sights.Controllers
               return NotFound("Entity set 'SqliteContext.Comments'  is null.");
           }
           if(comment.UserId == null)
-            {
+          {
                 return BadRequest("userId is null");
 
-            }
+          }
             if (comment.AttractionId == null)
             {
                 return BadRequest("AttractionId is null");
@@ -115,16 +115,18 @@ namespace sights.Controllers
 
         // DELETE: api/Comment/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteComment(long id)
         {
             if (_context.Comments == null)
             {
-                return NotFound();
+                return NotFound("Context is null");
             }
             var comment = await _context.Comments.FindAsync(id);
             if (comment == null)
             {
-                return NotFound();
+                return NotFound("The comment you wanted to delete did not exist from the beginning");
             }
 
             _context.Comments.Remove(comment);
