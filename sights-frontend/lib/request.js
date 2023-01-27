@@ -19,6 +19,31 @@ export async function post(url, obj){
           },
           body: JSON.stringify(obj)
     }).then(res => res.json())
-    .then(response => console.log(JSON.stringify(response)))
+    return response;
+}
+
+export async function deleteRequest(url, obj){
+    const response = await fetch( url , {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(obj)
+    }).then(res => res.json())
+    return response;
+}
+
+export async function putRequest(url, obj){
+    const response = await fetch( url , {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(obj)
+    }).then(res => res.json())
     return response;
 }
