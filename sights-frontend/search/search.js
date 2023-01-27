@@ -31,6 +31,8 @@ function render(sights, countries, cities, searchVal){
         link.innerHTML = attraction.title;
         link.href = `/comment/?id=${attraction.id}`;
         
+       
+
         title.append(link);
         row.append(title);
         searchTable.append(row);
