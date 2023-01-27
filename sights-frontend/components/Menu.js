@@ -20,6 +20,7 @@ export default function Menu(){
         logIn = primaryButton('a');
         logIn.innerHTML = 'Sign out';
         logIn.addEventListener('click', () => {
+            window.alert('You are signed out')
             window.localStorage.clear();
             window.location.href='/'
         });
