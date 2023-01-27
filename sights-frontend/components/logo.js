@@ -3,6 +3,7 @@ export default function logo(){
     logo.id = 'logo';
     logo.src = '../icons/Logo.svg';
     const link = document.createElement('a');
+    link.className = "logo-container";
     link.href='/';
     link.append(logo);
 
