@@ -1,4 +1,5 @@
-export default function Sight(likesCount, attractionId){
+export default function Sight(likesCount, attractionId, attraction){
+
     let upVotes = 0
     let downVotes = 0;
 
@@ -11,8 +12,18 @@ export default function Sight(likesCount, attractionId){
         }
     }
 
+    console.log(attraction)
+
     const card = document.createElement('div');
     card.id = 'sight';
+
+    const title = document.createElement('p');
+    title.innerHTML = attraction.title;
+    title.id = 'title';
+
+    const description = document.createElement('p');
+    description.innerHTML = attraction.description;
+    description.id = 'description';
 
     const likesContainer = document.createElement('div');
     likesContainer.id = 'likesContainer';
@@ -48,6 +59,8 @@ export default function Sight(likesCount, attractionId){
 
     likesContainer.appendChild(likesUpContainer);
     likesContainer.appendChild(likesDownContainer);
+    card.append(title);
+    card.append(description);
     card.append(likesContainer);
 
 
