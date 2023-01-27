@@ -66,7 +66,25 @@ namespace sights.Controllers
         {
             if (id != attraction.Id)
             {
-                return BadRequest("Please type in Id");
+                return BadRequest("AttractionId dosen't match!");
+            } 
+            if (attraction.UserId == null)
+            {
+                return BadRequest("UserId can't be null");
+            }
+            if (string.IsNullOrWhiteSpace(attraction.Title))
+            {
+                return BadRequest("Attraction must have a title");
+            }
+
+            if (string.IsNullOrWhiteSpace(attraction.Description))
+            {
+                return BadRequest("Attraction must have a description");
+            }
+
+            if (attraction.CountryId == null)
+            {
+                return BadRequest("Attraction must have a Country");
             }
 
             _context.Entry(attraction).State = EntityState.Modified;
@@ -79,7 +97,7 @@ namespace sights.Controllers
             {
                 if (!AttractionExists(id))
                 {
-                    return NotFound("did not found any id");
+                    return NotFound("Did not found any id");
                 }
                 else
                 {
@@ -106,22 +124,25 @@ namespace sights.Controllers
 
           if (attraction.UserId == null)
           {
-                return BadRequest("UserID is null");
+            return BadRequest("UserId is null");
+          }
+
+          if (string.IsNullOrWhiteSpace(attraction.Title))
+          {
+            return BadRequest("Attraction must have a title");
+          }
+
+          if (string.IsNullOrWhiteSpace(attraction.Description))
+          {
+            return BadRequest("Attraction must have a description");
+          }
+          if (attraction.CountryId == null)
+          {
+            return BadRequest("Attraction must have a Country");
           }
             _context.Attractions.Add(attraction);
             await _context.SaveChangesAsync();
-
-            if (string.IsNullOrWhiteSpace(attraction.Title))
-            {
-                return BadRequest("Attraction must have a title");
-            }
-
-            if (string.IsNullOrWhiteSpace(attraction.Description))
-            {
-                return BadRequest("Attraction must have a description");
-            }
-
-         
+        
             return CreatedAtAction("GetAttraction", new { id = attraction.Id }, attraction);
         }
 
