@@ -30,7 +30,7 @@ export async function deleteRequest(url){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-    }).then(res => res.json())
+    })
     return response;
 }
 
