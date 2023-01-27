@@ -13,6 +13,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());
     const cities = await fetch('https://localhost:7260/api/City').then(res => res.json());
 
+    console.log(sights)
+
     render(user);
 
     const searchResults = document.getElementById('search-results');
