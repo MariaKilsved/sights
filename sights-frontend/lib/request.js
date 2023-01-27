@@ -22,7 +22,7 @@ export async function post(url, obj){
     return response;
 }
 
-export async function deleteRequest(url, obj){
+export async function deleteRequest(url){
     const response = await fetch( url , {
         method: 'DELETE',
         mode: 'cors',
@@ -30,7 +30,6 @@ export async function deleteRequest(url, obj){
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(obj)
     }).then(res => res.json())
     return response;
 }

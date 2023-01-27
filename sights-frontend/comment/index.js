@@ -4,16 +4,18 @@ import Menu from "../components/Menu.js";
 import Sight from "../components/Sight.js";
 import CommentBox from '../components/CommentBox.js'
 import AddCommentBox from "../components/AddCommentBox.js";
-import { post, get } from '../lib/request.js';
+import { post, get, deleteRequest, putRequest } from '../lib/request.js';
 import commentSamplePostData from './mock-data/MockData.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     
-    const likes = await get(`https://localhost:7260/api/Like`);
+    let likes = await get(`https://localhost:7260/api/Like`);
+    console.log(likes)
     const queryString = window.location.search;
     const attractionId = new URLSearchParams(queryString).get('id');
     const attraction = await get(`https://localhost:7260/api/Attraction/${attractionId}`)
     const user = JSON.parse(localStorage.getItem('userinfo'));
+    console.log(user)
     let isLiked;
     if(user){
         isLiked = await hasLiked(user, attractionId, likes);
@@ -36,21 +38,13 @@ window.addEventListener("DOMContentLoaded", async () => {
             let upVoteNr = upVote.innerHTML;
             upVoteNr++;
             upVote.innerHTML = upVoteNr;
-            canUpVote = false;
 
             await post(`https://localhost:7260/api/Like`, userLike);
         }
         else {
-            const userLike = {
-                userId: user.userId,
-                AttractionId: attractionId,
-                like1: 0,
-            }
-
             let upVoteNr = upVote.innerHTML;
             upVoteNr--;
             upVote.innerHTML = upVoteNr;
-            canUpVote = true;
             
             let likeId;
             likes.forEach(like =>{
@@ -59,8 +53,12 @@ window.addEventListener("DOMContentLoaded", async () => {
                 }
             });
 
-            await post(`https://localhost:7260/api/Like/${likeId}`, userLike);
+            await deleteRequest(`https://localhost:7260/api/Like/${likeId}`);
         }
+
+        likes = await get(`https://localhost:7260/api/Like`);
+        isLiked = hasLiked(user, attractionId, likes)
+        console.log(isLiked)
 
         //const likes = await get(`https://localhost:7260/api/Like`);
 
@@ -131,11 +129,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 });
 
-async function hasLiked(user, attractionId, likes){
+function hasLiked(user, attractionId, likes){
     let hasLiked = false;
+    console.log(attractionId)
     likes.forEach(like => {
+        console.log(like.userId)
         if(like.userId === user.userId && attractionId === like.attractionId){
-            if(like.like1 == 0) hasLiked = true;
+            if(like.like1 === 1) hasLiked = true;
+            console.log(hasLiked)
         }
     });
 
