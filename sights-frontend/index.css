@@ -2,11 +2,24 @@ html,body{
     overflow-y: hidden;
 }
 
-#bg{
+#bg {
     position: absolute;
     bottom: 0;
-    width: 110vw;
     z-index: -1;
+}
+
+@media (orientation: landscape) {
+    #bg {
+        height: 70vh;
+        width: 113vw;
+    }
+}
+
+@media (orientation: portrait) {
+    #bg {
+        height: 48vh;
+        width: 119vw;
+    }
 }
 
 #page{
