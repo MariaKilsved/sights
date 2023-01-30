@@ -12,6 +12,7 @@
     font-size: 12px;
     font-weight: 600;
     border: 1px solid #2CCCFF;
+    font-family:'Poppins', 'Arial';
 }
 
 .primary-btn:hover{
@@ -21,5 +22,4 @@
 button .primary-btn{
    width: 100px;
    height: 34px;
-   font-family:'Poppins', 'Arial' !important;
 }
