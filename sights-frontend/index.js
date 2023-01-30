@@ -113,11 +113,11 @@ function render(user){
     const search = document.createElement('input');
     search.type = 'text';
     search.id = 'search';
-    search.placeholder = 'Sök plats...';
+    search.placeholder = 'Search place...';
 
     const searchBtn = document.createElement('a');
     searchBtn.id = 'search-btn'
-    searchBtn.innerHTML = 'sök'
+    searchBtn.innerHTML = 'Search'
     searchBtn.href = '/search/?value='
 
     const searchResults = document.createElement('div');

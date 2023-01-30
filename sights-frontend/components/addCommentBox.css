@@ -4,6 +4,10 @@
     height: 15%;
     margin-top: 1%;
     margin-bottom: 2em;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
     display: inline-block;
 
 }
@@ -19,6 +23,12 @@
     outline: none;
     padding: 10px;
 }
+@media only screen and (max-width:480px) {
+    #addCommentBoxContainer{
+     width: 80%;
+    
+    }
+}
 
 #addCommentBox:focus {
     border: 3px solid #8ECEC2;
@@ -28,6 +38,8 @@
     height: 20px;
     width: 60px;
     margin-left: 1%; 
+    color:#2CCCFF
+
 }
 
 
