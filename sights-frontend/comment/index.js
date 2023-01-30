@@ -98,6 +98,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         })
         
         const sendMessageBtn = document.getElementById('sendMessageBtn');
+        sendMessageBtn.innerHTML ="Submit";
+        sendMessageBtn.className = "primary-btn";
         sendMessageBtn.addEventListener('click', async () => {
             const commentContainer = document.getElementById('commentContainer');
             const addCommentText = document.getElementById('addCommentBox');

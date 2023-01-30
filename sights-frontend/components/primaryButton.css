@@ -17,3 +17,9 @@
 .primary-btn:hover{
     background-color: #27b4e3;
 }
+
+button .primary-btn{
+   width: 100px;
+   height: 34px;
+   font-family:'Poppins', 'Arial' !important;
+}
