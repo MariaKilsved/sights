@@ -362,7 +362,7 @@ namespace sights.Controllers
                                       select new AttractionLike
                                       {
                                           Attraction = attraction,
-                                          LikeCount = l?.Like1 ?? 0
+                                          LikeCount = l.Like1 ?? 0
                                       };
 
                 groupedAttractionLikes = (from al in attractionLikes
