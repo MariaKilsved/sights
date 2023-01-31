@@ -352,6 +352,11 @@ namespace sights.Controllers
                 return NotFound("Likes context was null");
             }
 
+            return await AttractionLikeQueryAsync();
+        }
+        private Task<ActionResult<List<AttractionLike>>> AttractionLikeQueryAsync() => Task.Run(() => AttractionLikeQuery());
+        private ActionResult<List<AttractionLike>> AttractionLikeQuery()
+        {
             List<AttractionLike> groupedAttractionLikes;
 
             using (var context = _context)
@@ -367,7 +372,8 @@ namespace sights.Controllers
 
                 groupedAttractionLikes = (from al in attractionLikes
                                           group al by al.Attraction.Id)
-                                              .Select(group => new AttractionLike {
+                                              .Select(group => new AttractionLike
+                                              {
                                                   Attraction = group.ToList().First().Attraction,
                                                   LikeCount = group.ToList().Sum(item => item.LikeCount)
                                               })
