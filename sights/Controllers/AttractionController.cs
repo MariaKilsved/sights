@@ -153,6 +153,7 @@ namespace sights.Controllers
 
         }
 
+        // TO-DO: Save country & city input to Id's 
         // POST: api/Attraction
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
