@@ -32,7 +32,8 @@ function render(){
     const card = Card();
     
     
-    const newAccount = document.createElement('p1');
+    const newAccount = document.createElement('p');
+    newAccount.className = "p1";
     newAccount.innerHTML = 'Enter Account Information';
     card.append(newAccount)
 

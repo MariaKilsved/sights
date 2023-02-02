@@ -144,10 +144,6 @@ html,body{
     padding-top: 10px;
 }
 
-#attraction-table .table-row:last-child {
-    padding-bottom: 10px;
-}
-
 .link{
     text-decoration: none;
     color: #002F3E;

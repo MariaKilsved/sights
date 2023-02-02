@@ -11,6 +11,8 @@
     font-size: 12px;
     font-weight: 600;
     border: 1px solid #bac1c3;
+    font-family:'Poppins', 'Arial';
+    box-sizing: border-box;
 }
 
 .secondary-btn:hover{

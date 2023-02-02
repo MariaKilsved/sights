@@ -38,7 +38,8 @@ function render(){
     
     const logo = icon(); 
     logo.className = 'logoClass' ;
-    const addSight = document.createElement('p2');
+    const addSight = document.createElement('p');
+    addSight.className = "p2";
     addSight.innerHTML = 'Add Sight';
     card.append(addSight)
 
