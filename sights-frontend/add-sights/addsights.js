@@ -20,7 +20,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         const sightObj = {userId: user.userId, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription}
         const response = await post(`https://localhost:7260/api/Attraction?`, sightObj);
-        //window.location.href='/'
+        window.alert('Your sight added')
+        window.location.href='/'
 
      })
 
