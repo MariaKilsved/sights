@@ -14,14 +14,33 @@ window.addEventListener("DOMContentLoaded", async () => {
         const confirmPassword = document.getElementById('input-confirmpassword').value;
 
         
-        if (passwordAccount === confirmPassword){
-            const encryptedPassword = CryptoJS.AES.encrypt(confirmPassword, accountname).toString();
-            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: encryptedPassword});
-            window.location.href='/'
+        if (passwordAccount === confirmPassword 
+           ){
+            
+                if(accountname != undefined 
+                    && accountname != null 
+                    && accountname != ''){
+
+                    if(passwordAccount != undefined
+                        && passwordAccount != null
+                        && passwordAccount != ''){
+                            const encryptedPassword = CryptoJS.AES.encrypt(confirmPassword, accountname).toString();
+                            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: encryptedPassword});
+                            window.location.href='/'
+                        
+                    }
+                    else{
+                        window.alert('Must have a password')
+                    }
+                   
+                }
+                else{
+                    window.alert('Must have a username')
+                }
         }
         else
         {
-            window.alert('Password is not the same')
+            window.alert('Password is not same')
         }
 
     })
@@ -69,7 +88,14 @@ function render(){
     canbtn.href='/'
     regbtn.innerHTML ='Register'
     canbtn.innerHTML ='Cancel'
+
+    const bg = document.createElement('img');
+    bg.id = 'bg';
+    bg.src = '../icons/bg.svg';
+    
     buttonContainer.append(regbtn);
     buttonContainer.append(canbtn);
     card.append(buttonContainer);
+
+    page.append(bg);
 }

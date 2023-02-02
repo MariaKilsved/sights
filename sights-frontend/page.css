@@ -2,6 +2,8 @@ html, body{
     padding: 0;
     margin: 0;
     font-family: 'Poppins';
+    overflow-x: hidden;
+
 }
 h1,h2{
     color: #2CCCFF;
@@ -44,5 +46,31 @@ h1,h2{
 .link{
     text-decoration: none;
     color: #002F3E;
+}
+#bg {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}
+@media (orientation: landscape) {
+    #bg {
+        height: 70vh;
+        width: 113vw;
+    }
+}
+
+@media (orientation: portrait) {
+    #bg {
+        height: 48vh;
+        width: 119vw;
+    }
+}
+@media only screen and (max-width:768px) {
+    #bg {
+        height: 63vh;
+        width: 119vw;
+        overflow-y: hidden;
+    }
+    
 }
 

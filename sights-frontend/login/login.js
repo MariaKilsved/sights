@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
+        try {
         const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}`);
         
         const decryptDataBasePW = CryptoJS.AES.decrypt(response.password, username);
@@ -25,14 +26,20 @@ window.addEventListener("DOMContentLoaded", async () => {
         const decodedInputPassword = decryptInputPassword.toString(CryptoJS.enc.Utf8);
 
         if(decodedDataBasePW === decodedInputPassword){
-        const userInfo = {userId: response.id, username: username};
+          
+            const userInfo = {userId: response.id, username: username};
 
-        localStorage.setItem('userinfo', JSON.stringify(userInfo))
-        window.alert(`Welcome ${username}`)
-        window.location.href='/'
-        } else {
+            localStorage.setItem('userinfo', JSON.stringify(userInfo))
+            window.alert(`Welcome ${username}`)
+            window.location.href='/'
+
+
+        }
+            
+        } catch (error) {
             window.alert('Failed to login')
         }
+       
 
     });
 
@@ -73,7 +80,13 @@ async function render(){
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
 
+    const bg = document.createElement('img');
+    bg.id = 'bg';
+    bg.src = '../icons/bg.svg';
+ 
+
     buttonContainer.append(logbtn);
     buttonContainer.append(signbtn);
     card.append(buttonContainer);
+    page.append(bg);
 }
