@@ -128,8 +128,10 @@ function render(user){
     search.placeholder = 'Search place...';
 
     const searchBtn = document.createElement('a');
-    searchBtn.id = 'search-btn'
-    searchBtn.innerHTML = 'Search'
+    searchBtn.id = 'search-btn';
+    const searchBtnImg = document.createElement('img');
+    searchBtnImg.src = "./icons/search.svg";
+    searchBtn.append(searchBtnImg);
     searchBtn.href = '/search/?value='
 
     const searchResults = document.createElement('div');

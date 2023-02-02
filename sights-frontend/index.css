@@ -59,10 +59,10 @@ html,body{
 #search-bar-container{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #DAECE9;
     border-radius: 10px;
     margin-top: 10px;
-    padding: 10px;
 }
 
 .search-bar-frame {
@@ -93,6 +93,7 @@ html,body{
     border: none;
     color: #002F3E;
     font-size: 12px;
+    margin: 10px;
 }
 
 #search:focus{
@@ -105,7 +106,18 @@ html,body{
     background-color: #95E8D9;
     color: #002F3E;
     text-decoration: none;
-    border-radius: 10px;
+    height: 54px;
+    width: 54px;
+    box-sizing: border-box;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-btn img {
+    opacity: 0.7;
 }
 
 #search-btn:hover{
@@ -128,7 +140,6 @@ html,body{
     border-collapse: collapse;
 }
 
-
 #attraction-table .table-row:hover, #attraction-table .table-row:focus {
     background-color: #8ecec2;
     border: none;
@@ -137,7 +148,7 @@ html,body{
 #attraction-table .link {
     width: 100%;
     display: block;
-    padding: 0 10px;
+    padding: 4px 10px;
 }
 
 #attraction-table .table-row:first-child {
