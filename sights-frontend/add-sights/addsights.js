@@ -11,19 +11,15 @@ import {post} from '../lib/request.js'
 window.addEventListener("DOMContentLoaded", async () => {
     render();
     const creBtn = document.getElementById('cre-btn');
+    const user = JSON.parse(window.localStorage.getItem('userinfo'));
     creBtn.addEventListener('click', async()=>{
         const ititle = document.getElementById('input-title').value;
         const icountry = document.getElementById('input-country').value;
         const icity = document.getElementById('input-city').value;
         const idescription = document.getElementById('inputDescription').value;
 
-        const user = JSON.parse(window.localStorage.getItem('userinfo'));
-        if(user){
-            console.log(user);
-        }
-
-        const response = await post(`https://localhost:7260/api/Attraction?`,{userId: user.userid, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription});
-        console.log(response);
+        const sightObj = {userId: user.userId, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription}
+        const response = await post(`https://localhost:7260/api/Attraction?`, sightObj);
         //window.location.href='/'
 
      })
