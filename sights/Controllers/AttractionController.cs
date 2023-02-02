@@ -153,55 +153,18 @@ namespace sights.Controllers
 
         }
 
-        // TO-DO: Save country & city input to Id's 
         // POST: api/Attraction
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<Attraction>> PostAttraction(AttractionBase64 attraction)
+        public async Task<ActionResult<Attraction>> PostAttraction(Attraction attraction)
         {
             if (_context.Attractions == null)
             {
-                return NotFound("Entity set 'SqliteContext.Attractions'  is null.");
+                return Problem("Entity set 'SqliteContext.Attractions'  is null.");
             }
-
-            if (attraction.UserId == null)
-            {
-                return BadRequest("UserID is null");
-            }
-
-            if (string.IsNullOrWhiteSpace(attraction.Title))
-            {
-                return BadRequest("Attraction must have a title");
-            }
-
-            if (string.IsNullOrWhiteSpace(attraction.Description))
-            {
-                return BadRequest("Attraction must have a description");
-            }
-
-            //Convert Picture
-            var attraction2 = new Attraction
-            {
-                Id = attraction.Id,
-                Coordinates = attraction.Coordinates,
-                Title = attraction.Title,
-                Description = attraction.Description,
-                UserId = attraction.UserId,
-                CountryId = attraction.CountryId,
-                CityId = attraction.CityId
-            };
-
-            if(attraction.Picture != null)
-            {
-                attraction2.Picture = Convert.FromBase64String(attraction.Picture);
-            }
-
-            _context.Attractions.Add(attraction2);
+            _context.Attractions.Add(attraction);
             await _context.SaveChangesAsync();
-         
+
             return CreatedAtAction("GetAttraction", new { id = attraction.Id }, attraction);
         }
 
