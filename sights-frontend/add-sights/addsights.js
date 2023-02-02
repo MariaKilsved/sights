@@ -75,10 +75,16 @@ function render(){
     buttonContainer.append(creBtn);
     buttonContainer.append(backBtn);
     card.append(buttonContainer);
+
+    const bg = document.createElement('img');
+    bg.id = 'bg';
+    bg.src = '../icons/bg.svg';
  
     page.append(menu);
     //page.append(logo);
     page.append(card);
+
+    page.append(bg);
    
 
 }

@@ -87,7 +87,14 @@ function render(){
     canbtn.href='/'
     regbtn.innerHTML ='Register'
     canbtn.innerHTML ='Cancel'
+
+    const bg = document.createElement('img');
+    bg.id = 'bg';
+    bg.src = '../icons/bg.svg';
+    
     buttonContainer.append(regbtn);
     buttonContainer.append(canbtn);
     card.append(buttonContainer);
+
+    page.append(bg);
 }

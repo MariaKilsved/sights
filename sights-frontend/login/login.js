@@ -80,7 +80,13 @@ async function render(){
     signbtn.innerHTML ='Sign Up'
     signbtn.href = '/register'
 
+    const bg = document.createElement('img');
+    bg.id = 'bg';
+    bg.src = '../icons/bg.svg';
+ 
+
     buttonContainer.append(logbtn);
     buttonContainer.append(signbtn);
     card.append(buttonContainer);
+    page.append(bg);
 }
