@@ -263,10 +263,10 @@ namespace sights.Controllers
 
 
         // GET: api/Attraction/LikeCount
-        [HttpGet("LikeCount")]
+        [HttpGet("LikeCount/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<long>> LikeCount(long attractionId)
+        public async Task<ActionResult<long?>> LikeCount(long attractionId)
         {
             if (_context.Attractions == null)
             {
@@ -280,8 +280,8 @@ namespace sights.Controllers
 
             return await LikeCountQueryAsync(attractionId);
         }
-        private Task<ActionResult<long>> LikeCountQueryAsync(long attractionId) => Task.Run(() => LikeCountQuery(attractionId));
-        private ActionResult<long> LikeCountQuery(long attractionId)
+        private Task<ActionResult<long?>> LikeCountQueryAsync(long attractionId) => Task.Run(() => LikeCountQuery(attractionId));
+        private ActionResult<long?> LikeCountQuery(long attractionId)
         {
             List<AttractionLike> groupedAttractionLikes;
 
@@ -308,7 +308,105 @@ namespace sights.Controllers
                                               .ToList();
             }
 
-            return groupedAttractionLikes?.FirstOrDefault().LikeCount;
+            return groupedAttractionLikes?.FirstOrDefault()?.LikeCount;
+        }
+
+
+        // GET: api/Attraction/ByCityAndLikes/{id}
+        [HttpGet("ByCityAndLikes/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<AttractionLike>>> ByCityAndLikes(long cityId)
+        {
+            if (_context.Attractions == null)
+            {
+                return NotFound("Attractions context was null");
+            }
+
+            if (_context.Likes == null)
+            {
+                return NotFound("Likes context was null");
+            }
+
+            return await ByCityAndLikesQueryAsync(cityId);
+        }
+        private Task<ActionResult<List<AttractionLike>>> ByCityAndLikesQueryAsync(long cityId) => Task.Run(() => ByCityAndLikesQuery(cityId));
+        private ActionResult<List<AttractionLike>> ByCityAndLikesQuery(long cityId)
+        {
+            List<AttractionLike> groupedAttractionLikes;
+
+            using (var context = _context)
+            {
+                var attractionLikes = from attraction in context.Attractions
+                                      join like in context.Likes on attraction equals like.Attraction into al
+                                      from l in al.DefaultIfEmpty()
+                                      where attraction.CityId == cityId
+                                      select new AttractionLike
+                                      {
+                                          Attraction = attraction,
+                                          LikeCount = l.Like1 ?? 0
+                                      };
+
+                groupedAttractionLikes = (from al in attractionLikes
+                                          group al by al.Attraction.Id)
+                                              .Select(group => new AttractionLike
+                                              {
+                                                  Attraction = group.ToList().First().Attraction,
+                                                  LikeCount = group.ToList().Sum(item => item.LikeCount)
+                                              })
+                                              .OrderByDescending(g => g.LikeCount)
+                                              .ToList();
+            }
+            return groupedAttractionLikes;
+        }
+
+
+        // GET: api/Attraction/ByCountryAndLikes/{id}
+        [HttpGet("ByCountryAndLikes/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<AttractionLike>>> ByCountryAndLikes(long countryId)
+        {
+            if (_context.Attractions == null)
+            {
+                return NotFound("Attractions context was null");
+            }
+
+            if (_context.Likes == null)
+            {
+                return NotFound("Likes context was null");
+            }
+
+            return await ByCountryAndLikesQueryAsync(countryId);
+        }
+        private Task<ActionResult<List<AttractionLike>>> ByCountryAndLikesQueryAsync(long countryId) => Task.Run(() => ByCountryAndLikesQuery(countryId));
+        private ActionResult<List<AttractionLike>> ByCountryAndLikesQuery(long countryId)
+        {
+            List<AttractionLike> groupedAttractionLikes;
+
+            using (var context = _context)
+            {
+                var attractionLikes = from attraction in context.Attractions
+                                      join like in context.Likes on attraction equals like.Attraction into al
+                                      from l in al.DefaultIfEmpty()
+                                      where attraction.CountryId == countryId
+                                      select new AttractionLike
+                                      {
+                                          Attraction = attraction,
+                                          LikeCount = l.Like1 ?? 0
+                                      };
+
+                groupedAttractionLikes = (from al in attractionLikes
+                                          group al by al.Attraction.Id)
+                                              .Select(group => new AttractionLike
+                                              {
+                                                  Attraction = group.ToList().First().Attraction,
+                                                  LikeCount = group.ToList().Sum(item => item.LikeCount)
+                                              })
+                                              .OrderByDescending(g => g.LikeCount)
+                                              .ToList();
+            }
+            return groupedAttractionLikes;
         }
     }
 }
