@@ -27,7 +27,7 @@ namespace sights.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<AttractionBase64>>> GetAttractions()
+        public async Task<ActionResult<IEnumerable<Attraction>>> GetAttractions()
         {
             if (_context.Attractions == null)
             {
@@ -35,31 +35,8 @@ namespace sights.Controllers
             }
 
             var attractions = await _context.Attractions.ToListAsync();
-            List<AttractionBase64> attractions2 = new();
 
-            foreach (var attraction in attractions)
-            {
-                //Convert Picture
-                var attraction2 = new AttractionBase64
-                {
-                    Id = attraction.Id,
-                    Coordinates = attraction.Coordinates,
-                    Title = attraction.Title,
-                    Description = attraction.Description,
-                    UserId = attraction.UserId,
-                    CountryId = attraction.CountryId,
-                    CityId = attraction.CityId
-                };
-
-                if (attraction.Picture != null)
-                {
-                    attraction2.Picture = Convert.ToBase64String(attraction.Picture);
-                }
-
-                attractions2.Add(attraction2);
-            }
-
-            return attractions2;
+            return attractions;
 
         }
 
@@ -67,7 +44,7 @@ namespace sights.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<AttractionBase64>> GetAttraction(long id)
+        public async Task<ActionResult<Attraction>> GetAttraction(long id)
         {
           if (_context.Attractions == null)
           {
@@ -80,25 +57,7 @@ namespace sights.Controllers
                 return NotFound("That attraction does not exist");
             }
 
-            //Convert Picture
-            var attraction2 = new AttractionBase64
-            {
-                Id = attraction.Id,
-                Coordinates = attraction.Coordinates,
-                Title = attraction.Title,
-                Description = attraction.Description,
-                UserId = attraction.UserId,
-                CountryId = attraction.CountryId,
-                CityId = attraction.CityId
-            };
-
-            if (attraction.Picture != null)
-            {
-                attraction2.Picture = Convert.ToBase64String(attraction.Picture);
-            }
-
-
-            return attraction2;
+            return attraction;
         }
 
         // PUT: api/Attraction/5,this is to update
@@ -107,31 +66,14 @@ namespace sights.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> PutAttraction(long id, AttractionBase64 attraction)
+        public async Task<IActionResult> PutAttraction(long id, Attraction attraction)
         {
             if (id != attraction.Id)
             {
                 return BadRequest("Please type in Id");
             }
 
-            //Convert Picture
-            var attraction2 = new Attraction
-            {
-                Id = attraction.Id,
-                Coordinates = attraction.Coordinates,
-                Title = attraction.Title,
-                Description = attraction.Description,
-                UserId = attraction.UserId,
-                CountryId = attraction.CountryId,
-                CityId = attraction.CityId
-            };
-
-            if (attraction.Picture != null)
-            {
-                attraction2.Picture = Convert.FromBase64String(attraction.Picture);
-            }
-
-            _context.Entry(attraction2).State = EntityState.Modified;
+            _context.Entry(attraction).State = EntityState.Modified;
 
             try
             {
@@ -156,12 +98,31 @@ namespace sights.Controllers
         // POST: api/Attraction
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Attraction>> PostAttraction(Attraction attraction)
         {
             if (_context.Attractions == null)
             {
-                return Problem("Entity set 'SqliteContext.Attractions'  is null.");
+                return NotFound("Entity set 'SqliteContext.Attractions'  is null.");
             }
+
+            if (attraction.UserId == null)
+            {
+                return BadRequest("UserID is null");
+            }
+
+            if (string.IsNullOrWhiteSpace(attraction.Title))
+            {
+                return BadRequest("Attraction must have a title");
+            }
+
+            if (string.IsNullOrWhiteSpace(attraction.Description))
+            {
+                return BadRequest("Attraction must have a description");
+            }
+
             _context.Attractions.Add(attraction);
             await _context.SaveChangesAsync();
 
@@ -203,7 +164,7 @@ namespace sights.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<AttractionBase64>>> GetByCity(long? id)
+        public async Task<ActionResult<IEnumerable<Attraction>>> GetByCity(long? id)
         {
             if (_context.Attractions == null)
             {
@@ -221,31 +182,7 @@ namespace sights.Controllers
                 return NotFound("No attraction was found in this city.");
             }
 
-            List<AttractionBase64> attractions2 = new();
-
-            foreach (var attraction in attractions)
-            {
-                //Convert Picture
-                var attraction2 = new AttractionBase64
-                {
-                    Id = attraction.Id,
-                    Coordinates = attraction.Coordinates,
-                    Title = attraction.Title,
-                    Description = attraction.Description,
-                    UserId = attraction.UserId,
-                    CountryId = attraction.CountryId,
-                    CityId = attraction.CityId
-                };
-
-                if (attraction.Picture != null)
-                {
-                    attraction2.Picture = Convert.ToBase64String(attraction.Picture);
-                }
-
-                attractions2.Add(attraction2);
-            }
-
-            return attractions2;
+            return attractions;
         }
 
         //By country id
@@ -253,7 +190,7 @@ namespace sights.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<IEnumerable<AttractionBase64>>> GetByCountry(long? id)
+        public async Task<ActionResult<IEnumerable<Attraction>>> GetByCountry(long? id)
         {
             if (_context.Attractions == null)
             {
@@ -271,32 +208,7 @@ namespace sights.Controllers
                 return NotFound("No attraction was found in this country.");
             }
 
-
-            List<AttractionBase64> attractions2 = new();
-
-            foreach (var attraction in attractions)
-            {
-                //Convert Picture
-                var attraction2 = new AttractionBase64
-                {
-                    Id = attraction.Id,
-                    Coordinates = attraction.Coordinates,
-                    Title = attraction.Title,
-                    Description = attraction.Description,
-                    UserId = attraction.UserId,
-                    CountryId = attraction.CountryId,
-                    CityId = attraction.CityId
-                };
-
-                if (attraction.Picture != null)
-                {
-                    attraction2.Picture = Convert.ToBase64String(attraction.Picture);
-                }
-
-                attractions2.Add(attraction2);
-            }
-
-            return attractions2;
+            return attractions;
         }
 
 
