@@ -24,6 +24,9 @@ window.addEventListener("DOMContentLoaded", async () => {
    
     render(user, isLiked, attraction, likes, comments);
 
+     const commenctContainer = document.getElementById('commentContainer');
+    if (!commenctContainer.hasChildNodes()) commenctContainer.style.display = 'none';
+
     if(user){
         const upVote = document.getElementById('likesUpIMG');
         upVote.addEventListener('click', async () => {
@@ -116,12 +119,13 @@ window.addEventListener("DOMContentLoaded", async () => {
                     content: addCommentText.value,
                     attractionId: attractionId,
             }   
-    
-             await post(`https://localhost:7260/api/comment`, comment);
+            //  await post(`https://localhost:7260/api/comment`, comment);
     
             addCommentText.value = '';
+            if (commenctContainer.hasChildNodes()) commenctContainer.style.display = 'block';
         })
     }
+
 
 });
 
