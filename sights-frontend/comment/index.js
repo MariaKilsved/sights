@@ -104,22 +104,23 @@ window.addEventListener("DOMContentLoaded", async () => {
         sendMessageBtn.innerHTML ="Submit";
         sendMessageBtn.className = "primary-btn";
         sendMessageBtn.addEventListener('click', async () => {
-            const commentContainer = document.getElementById('commentContainer');
-            const addCommentText = document.getElementById('addCommentBox');
-            const newComment = CommentBox(addCommentText.value);
-            commentContainer.appendChild(newComment);
-            commentSamplePostData.content = addCommentText.value;
-    
+            
             const storedUser = JSON.parse(localStorage.getItem('userinfo'));
             const queryString = window.location.search;
             const attractionId = new URLSearchParams(queryString).get('id');
+
+            const commentContainer = document.getElementById('commentContainer');
+            const addCommentText = document.getElementById('addCommentBox');
+            const newComment = CommentBox(addCommentText.value, storedUser.username);
+            commentContainer.appendChild(newComment);
+            commentSamplePostData.content = addCommentText.value;
     
             const comment = {
                     userId: storedUser.userId,
                     content: addCommentText.value,
                     attractionId: attractionId,
             }   
-             await post(`https://localhost:7260/api/comment`, comment);
+            //  await post(`https://localhost:7260/api/comment`, comment);
     
             addCommentText.value = '';
             if (commenctContainer.hasChildNodes()) commenctContainer.style.display = 'block';
