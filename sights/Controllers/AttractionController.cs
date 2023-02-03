@@ -228,10 +228,10 @@ namespace sights.Controllers
                 return NotFound("Likes context was null");
             }
 
-            return await AttractionLikeQueryAsync();
+            return await ByLikesQueryAsync();
         }
-        private Task<ActionResult<List<AttractionLike>>> AttractionLikeQueryAsync() => Task.Run(() => AttractionLikeQuery());
-        private ActionResult<List<AttractionLike>> AttractionLikeQuery()
+        private Task<ActionResult<List<AttractionLike>>> ByLikesQueryAsync() => Task.Run(() => ByLikesQuery());
+        private ActionResult<List<AttractionLike>> ByLikesQuery()
         {
             List<AttractionLike> groupedAttractionLikes;
 
@@ -257,6 +257,58 @@ namespace sights.Controllers
                                               .ToList();
             }
             return groupedAttractionLikes;
+        }
+
+
+
+
+        // GET: api/Attraction/LikeCount
+        [HttpGet("LikeCount")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<long>> LikeCount(long attractionId)
+        {
+            if (_context.Attractions == null)
+            {
+                return NotFound("Attractions context was null");
+            }
+
+            if (_context.Likes == null)
+            {
+                return NotFound("Likes context was null");
+            }
+
+            return await LikeCountQueryAsync(attractionId);
+        }
+        private Task<ActionResult<long>> LikeCountQueryAsync(long attractionId) => Task.Run(() => LikeCountQuery(attractionId));
+        private ActionResult<long> LikeCountQuery(long attractionId)
+        {
+            List<AttractionLike> groupedAttractionLikes;
+
+            using (var context = _context)
+            {
+                var attractionLikes = from attraction in context.Attractions
+                                      join like in context.Likes on attraction equals like.Attraction into al
+                                      from l in al.DefaultIfEmpty()
+                                      where attraction.Id == attractionId
+                                      select new AttractionLike
+                                      {
+                                          Attraction = attraction,
+                                          LikeCount = l.Like1 ?? 0
+                                      };
+
+                groupedAttractionLikes = (from al in attractionLikes
+                                          group al by al.Attraction.Id)
+                                              .Select(group => new AttractionLike
+                                              {
+                                                  Attraction = group.ToList().First().Attraction,
+                                                  LikeCount = group.ToList().Sum(item => item.LikeCount)
+                                              })
+                                              .OrderByDescending(g => g.LikeCount)
+                                              .ToList();
+            }
+
+            return groupedAttractionLikes?.FirstOrDefault().LikeCount;
         }
     }
 }
