@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Frameworks;
 using sights.Models;
 using sqlite.Data;
 using sqlite.Models;
@@ -46,10 +40,10 @@ namespace sights.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<Attraction>> GetAttraction(long id)
         {
-          if (_context.Attractions == null)
-          {
-              return NotFound();
-          }
+            if (_context.Attractions == null)
+            {
+                return NotFound();
+            }
             var attraction = await _context.Attractions.FindAsync(id);
 
             if (attraction == null)
@@ -118,7 +112,44 @@ namespace sights.Controllers
                 return BadRequest("Attraction must have a title");
             }
 
-            if (string.IsNullOrWhiteSpace(attraction.Description))
+            bool hasNewCountry = false;
+            if (!string.IsNullOrWhiteSpace(attraction?.Country?.Name))
+            {
+                var findCountry = _context.Countries.Where(x => x.Name == attraction.Country.Name).FirstOrDefault();
+
+                if (findCountry != null)
+                {
+                    attraction.CountryId = findCountry?.Id;
+                    attraction.Country = null;
+                }
+                else
+                {
+                    hasNewCountry = true;
+                    attraction.Country.UserId = attraction.UserId;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(attraction?.City?.Name))
+            {
+                var findCity = _context.Cities.Where(x => x.Name == attraction.City.Name).FirstOrDefault();
+
+                if (findCity != null)
+                {
+                    attraction.CityId = findCity?.Id;
+                    attraction.City = null;
+                }
+                else
+                {
+                    if (hasNewCountry)
+                    {
+                        attraction.City.UserId = attraction.UserId;
+                    }
+                }
+            }
+
+
+
+            if (string.IsNullOrWhiteSpace(attraction?.Description))
             {
                 return BadRequest("Attraction must have a description");
             }
@@ -139,7 +170,7 @@ namespace sights.Controllers
             {
                 return NotFound("Context is null");
             }
-        
+
             var attraction = await _context.Attractions.FindAsync(id);
             if (attraction == null)
             {
@@ -170,7 +201,7 @@ namespace sights.Controllers
             {
                 return NotFound("Context is null");
             }
-            if(id == null)
+            if (id == null)
             {
                 return BadRequest("City id is null");
             }
