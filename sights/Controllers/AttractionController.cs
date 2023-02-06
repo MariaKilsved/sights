@@ -152,13 +152,6 @@ namespace sights.Controllers
                 {
                     if (hasNewCountry)
                     {
-                        /*
-                        List<Country>? lastCountryList = await _context.Countries.OrderByDescending(x => x.Id).Take(1).ToListAsync();
-                        long lastId = lastCountryList?.FirstOrDefault()?.Id ?? 0;
-                        attraction.City.CountryId = lastId + 1;
-                        attraction.Country.Id = lastId + 1;
-                        */
-
                         attraction.City.Country = attraction.Country;
 
                     }
