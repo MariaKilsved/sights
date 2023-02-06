@@ -10,7 +10,7 @@
     min-width: 215px;
 }
 
-@media(min-width: 340px) {
+@media(max-width: 340px) {
     #card {
         width: 320px;
     }
