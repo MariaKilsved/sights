@@ -3,8 +3,6 @@ html, body{
     margin: 0;
     font-family: 'Poppins';
     overflow-x: hidden;
-    overflow-y: hidden;
-
 }
 h1,h2{
     color: #2CCCFF;
@@ -20,7 +18,7 @@ h1,h2{
     height: calc(100vh - 78px);
     max-height: 100vh;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
