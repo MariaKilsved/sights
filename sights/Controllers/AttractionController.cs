@@ -130,7 +130,7 @@ namespace sights.Controllers
                 if (findCountry != null)
                 {
                     attraction.CountryId = findCountry?.Id;
-                    attraction.Country = null;
+                    attraction.Country = findCountry;
                 }
                 else
                 {
@@ -146,7 +146,6 @@ namespace sights.Controllers
                 if (findCity != null)
                 {
                     attraction.CityId = findCity?.Id;
-                    attraction.City = null;
                 }
                 else
                 {
@@ -154,6 +153,10 @@ namespace sights.Controllers
                     {
                         attraction.City.Country = attraction.Country;
 
+                    }
+                    else
+                    {
+                        attraction.City.CountryId = attraction.CountryId;
                     }
                     attraction.City.UserId = attraction.UserId;
                 }
