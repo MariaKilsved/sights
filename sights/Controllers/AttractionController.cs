@@ -145,6 +145,7 @@ namespace sights.Controllers
 
                 if (findCity != null)
                 {
+                    attraction.City = findCity;
                     attraction.CityId = findCity?.Id;
                 }
                 else
