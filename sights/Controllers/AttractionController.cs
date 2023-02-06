@@ -64,7 +64,7 @@ namespace sights.Controllers
         {
             if (id != attraction.Id)
             {
-                return BadRequest("Please type in Id");
+                return BadRequest("Ids did not match");
             }
 
             _context.Entry(attraction).State = EntityState.Modified;
@@ -77,7 +77,7 @@ namespace sights.Controllers
             {
                 if (!AttractionExists(id))
                 {
-                    return NotFound("Did not found any id");
+                    return NotFound("Did not find any id");
                 }
                 else
                 {
@@ -100,6 +100,16 @@ namespace sights.Controllers
             if (_context.Attractions == null)
             {
                 return NotFound("Entity set 'SqliteContext.Attractions'  is null.");
+            }
+
+            if (_context.Cities == null)
+            {
+                return NotFound("Entity set 'SqliteContext.Cities'  is null.");
+            }
+
+            if (_context.Countries == null)
+            {
+                return NotFound("Entity set 'SqliteContext.Countries'  is null.");
             }
 
             if (attraction.UserId == null)
@@ -143,9 +153,11 @@ namespace sights.Controllers
                     if (hasNewCountry)
                     {
 
-                        var lastCountry = await LastCountryQueryAsync();
+                        List<Country>? lastCountryList = await _context.Countries.OrderByDescending(x => x.Id).Take(1).ToListAsync();
+                        long lastId = lastCountryList?.FirstOrDefault()?.Id ?? 0;
+                        attraction.City.CountryId = lastId + 1;
+                        attraction.Country.Id = lastId + 1;
 
-                        attraction.City.CountryId = lastCountry?.Id + 1;
 
                     }
                     attraction.City.UserId = attraction.UserId;
@@ -164,23 +176,6 @@ namespace sights.Controllers
 
             return CreatedAtAction("GetAttraction", new { id = attraction.Id }, attraction);
         }
-
-
-        private Task<Country?> LastCountryQueryAsync() => Task.Run(() => LastCountryQuery());
-        private Country? LastCountryQuery()
-        {
-            Country? lastCountry = new Country();
-
-            using (var context = _context)
-            {
-                lastCountry = (from country in context.Countries
-                                   select country).OrderByDescending(x => x.Id).Take(1).ToList().FirstOrDefault();
-
-            }
-
-            return lastCountry;
-        }
-
 
         // DELETE: api/Attraction/5
         [HttpDelete("{id}")]
