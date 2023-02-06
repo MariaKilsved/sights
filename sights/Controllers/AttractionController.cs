@@ -142,8 +142,13 @@ namespace sights.Controllers
                 {
                     if (hasNewCountry)
                     {
-                        attraction.City.UserId = attraction.UserId;
+
+                        var lastCountry = await LastCountryQueryAsync();
+
+                        attraction.City.CountryId = lastCountry?.Id + 1;
+
                     }
+                    attraction.City.UserId = attraction.UserId;
                 }
             }
 
@@ -159,6 +164,23 @@ namespace sights.Controllers
 
             return CreatedAtAction("GetAttraction", new { id = attraction.Id }, attraction);
         }
+
+
+        private Task<Country?> LastCountryQueryAsync() => Task.Run(() => LastCountryQuery());
+        private Country? LastCountryQuery()
+        {
+            Country? lastCountry = new Country();
+
+            using (var context = _context)
+            {
+                lastCountry = (from country in context.Countries
+                                   select country).OrderByDescending(x => x.Id).Take(1).ToList().FirstOrDefault();
+
+            }
+
+            return lastCountry;
+        }
+
 
         // DELETE: api/Attraction/5
         [HttpDelete("{id}")]
