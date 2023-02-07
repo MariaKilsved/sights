@@ -120,7 +120,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                     content: addCommentText.value,
                     attractionId: attractionId,
             }   
-            //  await post(`https://localhost:7260/api/comment`, comment);
+            await post(`https://localhost:7260/api/comment`, comment);
     
             addCommentText.value = '';
             if (commenctContainer.hasChildNodes()) commenctContainer.style.display = 'block';
