@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sights.Utility;
 using sqlite.Data;
 using sqlite.Models;
 
@@ -111,6 +112,16 @@ namespace sights.Controllers
             {
                 return BadRequest("CountryId is null");
             }
+
+            city.Name = city.Name.Trim();
+            city.Name = Utility.Utility.FirstLetterToUpper(city.Name);
+
+            if(city.Country != null)
+            {
+                city.Country.Name = city.Country.Name.Trim();
+                city.Country.Name = Utility.Utility.FirstLetterToUpper(city.Country.Name);
+            }
+
             _context.Cities.Add(city);
             await _context.SaveChangesAsync();
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sights.Utility;
 using sqlite.Data;
 using sqlite.Models;
 
@@ -108,6 +109,10 @@ namespace sights.Controllers
             {
                 return BadRequest("UserId is null");
             }
+
+            country.Name = country.Name.Trim();
+            country.Name = Utility.Utility.FirstLetterToUpper(country.Name);
+
 
             _context.Countries.Add(country);
             await _context.SaveChangesAsync();

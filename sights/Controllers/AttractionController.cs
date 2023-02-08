@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sights.Models;
+using sights.Utility;
 using sqlite.Data;
 using sqlite.Models;
 
@@ -99,17 +100,22 @@ namespace sights.Controllers
         {
             if (_context.Attractions == null)
             {
-                return NotFound("Entity set 'SqliteContext.Attractions'  is null.");
+                return NotFound("Entity set 'SqliteContext.Attractions' is null.");
             }
 
             if (_context.Cities == null)
             {
-                return NotFound("Entity set 'SqliteContext.Cities'  is null.");
+                return NotFound("Entity set 'SqliteContext.Cities' is null.");
             }
 
             if (_context.Countries == null)
             {
                 return NotFound("Entity set 'SqliteContext.Countries'  is null.");
+            }
+
+            if (attraction == null)
+            {
+                return BadRequest("Attraction is null");
             }
 
             if (attraction.UserId == null)
@@ -120,6 +126,23 @@ namespace sights.Controllers
             if (string.IsNullOrWhiteSpace(attraction.Title))
             {
                 return BadRequest("Attraction must have a title");
+            }
+
+            if (string.IsNullOrWhiteSpace(attraction?.Description))
+            {
+                return BadRequest("Attraction must have a description");
+            }
+
+            attraction.Title = attraction.Title.Trim();
+            attraction.Description = attraction.Description.Trim();
+
+            attraction.Title = Utility.Utility.FirstLetterToUpper(attraction.Title);
+            attraction.Description = Utility.Utility.FirstLetterToUpper(attraction.Description);
+
+            //Double-checking due to static method
+            if (attraction == null)
+            {
+                return BadRequest("Attraction is null");
             }
 
             bool hasNewCountry = false;
@@ -136,6 +159,8 @@ namespace sights.Controllers
                 {
                     hasNewCountry = true;
                     attraction.Country.UserId = attraction.UserId;
+                    attraction.Country.Name = attraction.Country.Name.Trim();
+                    attraction.Country.Name = Utility.Utility.FirstLetterToUpper(attraction.Country.Name);
                 }
             }
 
@@ -150,6 +175,9 @@ namespace sights.Controllers
                 }
                 else
                 {
+                    attraction.City.Name = attraction.City.Name.Trim();
+                    attraction.City.Name = Utility.Utility.FirstLetterToUpper(attraction.City.Name);
+
                     if (hasNewCountry)
                     {
                         attraction.City.Country = attraction.Country;
@@ -161,13 +189,6 @@ namespace sights.Controllers
                     }
                     attraction.City.UserId = attraction.UserId;
                 }
-            }
-
-
-
-            if (string.IsNullOrWhiteSpace(attraction?.Description))
-            {
-                return BadRequest("Attraction must have a description");
             }
 
             _context.Attractions.Add(attraction);
