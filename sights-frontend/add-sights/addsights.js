@@ -14,8 +14,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     const user = JSON.parse(window.localStorage.getItem('userinfo'));
     creBtn.addEventListener('click', async()=>{
         const ititle = document.getElementById('input-title').value;
-        const icountry = document.getElementById('input-country').value;
-        const icity = document.getElementById('input-city').value;
+        const icountry = document.getElementById('input-country').value.trim();
+        const icity = document.getElementById('input-city').value.trim();
         const idescription = document.getElementById('inputDescription').value;
 
         const sightObj = {userId: user.userId, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription}
