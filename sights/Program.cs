@@ -15,8 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SqliteContext>
     (options => options.UseSqlite("Data Source=../Database/Sights.db"));
 
-builder.Services.AddMvc(option => option.EnableEndpointRouting = false)
-    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+//builder.Services.AddMvc(option => option.EnableEndpointRouting = false)
+//    .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
 
@@ -39,13 +39,13 @@ app.UseCors(x => x
 
 //app.UseAuthentication();
 //app.UseAuthorization();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
 
-app.UseAuthorization();
 
 app.MapControllers();
 
