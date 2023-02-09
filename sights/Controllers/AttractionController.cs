@@ -148,7 +148,7 @@ namespace sights.Controllers
             bool hasNewCountry = false;
             if (!string.IsNullOrWhiteSpace(attraction?.Country?.Name))
             {
-                var findCountry = _context.Countries.Where(x => x.Name == attraction.Country.Name).FirstOrDefault();
+                var findCountry = _context.Countries.Where(x => x.Name.ToUpper() == attraction.Country.Name.ToUpper()).FirstOrDefault();
 
                 if (findCountry != null)
                 {
@@ -166,7 +166,7 @@ namespace sights.Controllers
 
             if (!string.IsNullOrWhiteSpace(attraction?.City?.Name))
             {
-                var findCity = _context.Cities.Where(x => x.Name == attraction.City.Name).FirstOrDefault();
+                var findCity = _context.Cities.Where(x => x.Name.ToUpper() == attraction.City.Name.ToUpper()).FirstOrDefault();
 
                 if (findCity != null)
                 {
