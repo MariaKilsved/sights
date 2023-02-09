@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const password = document.getElementById('input-password').value;
         
         try {
-        const response = await get(`https://localhost:7260/api/User/LogIn?username=${username}`);
+        const response = await get(`https://localhost:7260/api/User/OldLogIn?username=${username}`);
         
         const decryptDataBasePW = CryptoJS.AES.decrypt(response.password, username);
         const decodedDataBasePW = decryptDataBasePW.toString(CryptoJS.enc.Utf8);
