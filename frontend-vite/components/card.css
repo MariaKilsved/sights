@@ -1,0 +1,77 @@
+#card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 43px 30px;
+    background-color: #95E8D9;
+    border-radius: 10px;
+    filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
+    margin: 0 10px 70px;
+    min-width: 215px;
+}
+
+@media(max-width: 340px) {
+    #card {
+        width: 320px;
+    }
+}
+
+@media (min-height: 520px) {
+    #card {
+        margin-top: 70px;
+    }
+}
+#card input{
+    border: 3px solid  transparent;
+    padding: 13px 10px;
+    margin: 10px;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+input:focus {
+  border: 3px solid  #8ECEC2;
+ 
+}
+
+.p1, .p2, #log-in{
+    color:black;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    align-self: start;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-bottom: 15px;
+}
+
+#inputDescription{
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+    resize: none;
+    border: 3px solid transparent;
+    outline: none;
+    height: 70px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#inputDescription:focus{
+      border: 3px solid  #8ECEC2;
+}
+
+#button-container{
+    display: flex;
+    gap: 15px;
+    margin: 10px 0;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+
+
+

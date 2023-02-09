@@ -1,0 +1,20 @@
+.secondary-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 34px;
+    background-color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #1F4E5C;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #bac1c3;
+    font-family:'Poppins', 'Arial';
+    box-sizing: border-box;
+}
+
+.secondary-btn:hover{
+    background-color: #bac1c3;
+}

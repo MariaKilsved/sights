@@ -1,0 +1,81 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins';
+    overflow-x: hidden;
+}
+h1,h2{
+    color: #2CCCFF;
+}
+#sights{
+    font-weight: bold;
+}
+
+
+#page{
+    position: relative;
+    max-width: 100vw;
+    height: calc(100vh - 78px);
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+}
+
+#searchBar {
+    width: 500px;
+}
+
+#logo{
+    width: 68px;
+    height: 68px;
+}
+.logoClass{
+    position: absolute;
+    top: 5px ;
+    left: 5px;
+}
+
+#search-table{
+    width: 100%;
+    padding: 20px;
+    width: 70vw;
+}
+
+.link{
+    text-decoration: none;
+    color: #002F3E;
+}
+#bg {
+    position: absolute;
+    bottom: 0;
+    z-index: -2;
+}
+@media (orientation: landscape) {
+    #bg {
+        height: 70vh;
+        width: 113vw;
+    }
+
+    #bg-logo {
+        bottom: 15%;
+        transform: translate(-56%, -50%);
+        height: 10vh;
+    }
+}
+
+@media (orientation: portrait) {
+    #bg {
+        height: 48vh;
+        width: 119vw;
+    }
+
+    #bg-logo {
+        bottom: 45%;
+        transform: translate(-50%, -50%);
+        height: 10vh;
+    }
+}
