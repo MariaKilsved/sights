@@ -11,7 +11,6 @@ namespace sights.JwtAuthorization
         public DateTime ExpiredTime { get; set; }
 
         //This will be the User part of the Claim
-        public Guid UserId { get; set; }
         public string UserName { get; set; } = "";
        
     }

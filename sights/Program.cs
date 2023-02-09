@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using sights.JwtAuthorization;
 using sqlite.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 // Add services to the container.
+
+builder.Services.AddJwtTokenService(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

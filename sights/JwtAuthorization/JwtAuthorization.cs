@@ -12,7 +12,6 @@ namespace sights.JwtAuthorization
         public static IEnumerable<Claim> CreateClaims(JwtUserToken userToken, Guid TokenId)
         {
             IEnumerable<Claim> claims = new Claim[] {
-                new Claim("UserId", userToken.UserId.ToString()),
                     new Claim(ClaimTypes.Name, userToken.UserName),
                     new Claim(ClaimTypes.NameIdentifier, TokenId.ToString()),
                     new Claim(ClaimTypes.Expiration, DateTime.UtcNow.AddDays(1).ToString("MMM ddd dd yyyy HH:mm:ss tt"))
@@ -49,7 +48,6 @@ namespace sights.JwtAuthorization
             _token.TokenId = tokenId;
             _token.EncryptedToken = new JwtSecurityTokenHandler().WriteToken(JWToken);
             _token.UserName = userToken.UserName;
-            _token.UserId = userToken.UserId;
            
             return _token;
         }
