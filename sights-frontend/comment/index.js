@@ -9,10 +9,11 @@ import commentSamplePostData from './mock-data/MockData.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     
-    let likes = await get(`https://localhost:7260/api/Like`);
-    const comments = await get(`https://localhost:7260/api/Comment`);
     const queryString = window.location.search;
     const attractionId = new URLSearchParams(queryString).get('id');
+    let likes = await get(`https://localhost:7260/api/Like`);
+    const comments = await get(`https://localhost:7260/api/Comment/ByAttraction?attractionId=${attractionId}`);
+    console.log(comments)
     const attraction = await get(`https://localhost:7260/api/Attraction/${attractionId}`)
     const user = JSON.parse(localStorage.getItem('userinfo'));
     let isLiked;
@@ -164,12 +165,11 @@ function render(user, isLiked, attraction, likes, comments){
     const commentContainer = document.createElement('div');
     commentContainer.id = 'commentContainer';
 
-    for (let i = 0; i < comments.length; i++){
-        if (comments[i].attractionId == attractionId){
-            const commentBox = CommentBox(comments[i].content);
-            commentContainer.append(commentBox);
-        }
-    }
+    comments.forEach((comment) => {
+        const commentBox = CommentBox(comment.comment.content, comment.username);
+        commentContainer.append(commentBox);
+    })
+
     page.append(menu);
     page.append(sight);
     page.append(commentContainer);

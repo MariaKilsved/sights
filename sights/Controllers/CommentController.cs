@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sights.Models;
 using sqlite.Data;
 using sqlite.Models;
 
@@ -31,6 +32,35 @@ namespace sights.Controllers
           }
             return await _context.Comments.ToListAsync();
         }
+
+        [HttpGet("ByAttraction")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<List<CommentUser>>> ByAttraction(long attractionId)
+        {
+           return await ByAttractionAsync(attractionId); 
+        }
+
+        private Task<ActionResult<List<CommentUser>>> ByAttractionAsync(long attractionId) => Task.Run(() => ByAttractionQuery(attractionId));
+        private ActionResult<List<CommentUser>> ByAttractionQuery(long attractionId)
+        {
+            List<CommentUser> groupedCommentUser;
+
+            using(var context = _context)
+            {
+                groupedCommentUser = (from attraction in context.Attractions
+                                  join comment in context.Comments on attraction equals comment.Attraction
+                                  join user in context.Users on comment.UserId equals user.Id
+                                  where (attraction.Id == attractionId)
+                                  select new CommentUser
+                                  {
+                                        Comment = comment,
+                                        Username = user.Username,
+                                  }).ToList();
+            }
+            return groupedCommentUser;
+        }
+        
 
         // GET: api/Comment/5
         [HttpGet("{id}")]
