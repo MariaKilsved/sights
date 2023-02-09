@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sqlite.Data;
 using sqlite.Models;
+using Microsoft.AspNetCore.Authorization;
+using sights.JwtAuthorization;
+using sights.Models;
 
 namespace sights.Controllers
 {
@@ -142,7 +145,7 @@ namespace sights.Controllers
         }
 
         [HttpGet("Login")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, Type = typeof(JwtUserToken))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<User>> Login(string username, string? password)
