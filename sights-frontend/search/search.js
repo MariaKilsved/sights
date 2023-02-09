@@ -4,7 +4,7 @@ import Menu from '../components/Menu.js';
 import {get} from '../lib/request.js';
 
 window.addEventListener("DOMContentLoaded", async () => {
-    let sights = await get('https://localhost:7260/api/Attraction/ByLikes');
+    const sights = await get('https://localhost:7260/api/Attraction/ByLikes');
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());
     const cities = await fetch('https://localhost:7260/api/City').then(res => res.json());
 
