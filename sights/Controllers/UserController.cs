@@ -183,5 +183,39 @@ namespace sights.Controllers
 
             return Ok(Token);
         }
+
+        [HttpGet("OldLogin")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<User>> OldLogin(string username, string? password)
+
+        {
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
+
+            //Testing for username only first
+            IEnumerable<User> Users1 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+
+            if (!Users1.Any())
+            {
+                return NotFound("Username is incorrect or user does not exist.");
+            }
+
+            //Testing for both username and password
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+
+            if (!Users2.Any())
+            {
+                return BadRequest("Password is incorrect.");
+            }
+
+            return Users2.First();
+
+
+        }
+
     }
 }
