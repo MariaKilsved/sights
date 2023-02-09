@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using sqlite.Data;
 using sqlite.Models;
+using Microsoft.AspNetCore.Authorization;
+using sights.JwtAuthorization;
+using sights.Models;
+using NuGet.Common;
 
 namespace sights.Controllers
 {
@@ -15,10 +19,13 @@ namespace sights.Controllers
     public class UserController : ControllerBase
     {
         private readonly SqliteContext _context;
+        private readonly JwtSettings _jwtSettings;
 
-        public UserController(SqliteContext context)
+
+        public UserController(SqliteContext context, JwtSettings jwtSettings)
         {
             _context = context;
+            _jwtSettings = jwtSettings;
         }
 
         // GET: api/User
@@ -142,15 +149,15 @@ namespace sights.Controllers
         }
 
         [HttpGet("Login")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(JwtUserToken))]
+        [ProducesResponseType(400, Type = typeof(string))]
+        [ProducesResponseType(404, Type = typeof(string))]
         public async Task<ActionResult<User>> Login(string username, string? password)
             
         {
             if (_context.Users == null)
             {
-                return NotFound();
+                return NotFound("Context was null");
             }
 
             //Testing for username only first
@@ -169,9 +176,12 @@ namespace sights.Controllers
                 return BadRequest("Password is incorrect.");
             }
 
-            return Users2.First();
-           
+            JwtUserToken Token = JwtAuthorization.JwtAuthorization.CreateJwtTokenKey(new JwtUserToken()
+            {
+                UserName = username,
+            }, _jwtSettings); ;
 
+            return Ok(Token);
         }
     }
 }

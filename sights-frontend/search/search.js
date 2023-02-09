@@ -4,15 +4,15 @@ import Menu from '../components/Menu.js';
 import {get} from '../lib/request.js';
 
 window.addEventListener("DOMContentLoaded", async () => {
-    let sights = await fetch('https://localhost:7260/api/Attraction').then(res => res.json());
+    const sights = await get('https://localhost:7260/api/Attraction/ByLikes');
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());
     const cities = await fetch('https://localhost:7260/api/City').then(res => res.json());
-    const sightsWithLikes = await addLikeCountToSights(sights);
+
     
     const queryString = window.location.search;
     const searchVal = new URLSearchParams(queryString).get('value');
 
-    render(sightsWithLikes, countries, cities, searchVal);
+    render(sights, countries, cities, searchVal);
 
     
     const searchTable = document.getElementById('search-table');
@@ -32,14 +32,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-async function addLikeCountToSights(sights){
-    for ( const sight of sights) {
-        sight.likeCount = await get(`https://localhost:7260/api/Attraction/LikeCount/1?attractionId=${sight.id}`);
-    }
-    
 
-    return sights;
-}
 
 function render(sightsWithLikes, countries, cities, searchVal){
     const page = document.getElementById('page');
@@ -52,13 +45,18 @@ function render(sightsWithLikes, countries, cities, searchVal){
     
     sightsWithLikes.forEach((attraction) => {
         const row = document.createElement('tr')
+        row.className='row'
         
         const title = document.createElement('td');
         const likes = document.createElement('td');
+        const info = document.createElement('p');
         const link = document.createElement('a');
         link.className = 'link';
-        link.innerHTML = attraction.title;
-        link.href = `/comment/?id=${attraction.id}`;
+        info.id = 'description';
+        
+        link.innerHTML = attraction.attraction.title;
+        info.innerHTML=attraction.attraction.description;
+        link.href = `/comment/?id=${attraction.attraction.id}`;
         
         const nrOfLikes = document.createElement('p');
         nrOfLikes.innerHTML = attraction.likeCount + " likes";
@@ -66,6 +64,7 @@ function render(sightsWithLikes, countries, cities, searchVal){
         title.append(link);
         likes.append(nrOfLikes);
         row.append(title);
+        title.append(info);
         row.append(likes);
         searchTable.append(row);
     });
