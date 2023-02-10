@@ -23,66 +23,7 @@ namespace sights.Controllers
             _context = context;
         }
 
-        // GET: api/SubComment
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SubComment>>> GetSubComments()
-        {
-          if (_context.SubComments == null)
-          {
-              return NotFound();
-          }
-            return await _context.SubComments.ToListAsync();
-        }
-
-        // GET: api/SubComment/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SubComment>> GetSubComment(long id)
-        {
-          if (_context.SubComments == null)
-          {
-              return NotFound();
-          }
-            var subComment = await _context.SubComments.FindAsync(id);
-
-            if (subComment == null)
-            {
-                return NotFound();
-            }
-
-            return subComment;
-        }
-
-        // PUT: api/SubComment/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSubComment(long id, SubComment subComment)
-        {
-            if (id != subComment.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(subComment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SubCommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+        //Example jwt
         // POST: api/SubComment/{id}
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
@@ -118,29 +59,6 @@ namespace sights.Controllers
             return CreatedAtAction("GetSubComment", new { id = subComment.Id }, subComment);
         }
 
-        // DELETE: api/SubComment/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSubComment(long id)
-        {
-            if (_context.SubComments == null)
-            {
-                return NotFound();
-            }
-            var subComment = await _context.SubComments.FindAsync(id);
-            if (subComment == null)
-            {
-                return NotFound();
-            }
-
-            _context.SubComments.Remove(subComment);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool SubCommentExists(long id)
-        {
-            return (_context.SubComments?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+    
     }
 }
