@@ -10,6 +10,14 @@
     min-width: 215px;
 }
 
+#card td:first-child:hover{
+    background-color: #86d2c4;
+}
+
+#card td {
+    border-radius: 7px;
+}
+
 @media(max-width: 340px) {
     #card {
         width: 320px;

@@ -2,4 +2,9 @@
     color: coral;
     font-style: italic;
     font-size: 10px;
+    margin-left: 10px;
+}
+
+#linkTitle{
+    margin-left: 10px;
 }
