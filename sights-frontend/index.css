@@ -138,6 +138,9 @@ html,body{
     width: 100%;
     border: none;
     border-collapse: collapse;
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #attraction-table .table-row:hover, #attraction-table .table-row:focus {
