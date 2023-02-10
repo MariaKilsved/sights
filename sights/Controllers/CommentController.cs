@@ -22,17 +22,6 @@ namespace sights.Controllers
             _context = context;
         }
 
-        // GET: api/Comment
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
-        {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
-            return await _context.Comments.ToListAsync();
-        }
-
         [HttpGet("ByAttraction")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -59,56 +48,6 @@ namespace sights.Controllers
                                   }).ToList();
             }
             return groupedCommentUser;
-        }
-        
-
-        // GET: api/Comment/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetComment(long id)
-        {
-          if (_context.Comments == null)
-          {
-              return NotFound();
-          }
-            var comment = await _context.Comments.FindAsync(id);
-
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return comment;
-        }
-
-        // PUT: api/Comment/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(long id, Comment comment)
-        {
-            if (id != comment.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Comment
@@ -143,31 +82,5 @@ namespace sights.Controllers
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Comment/5
-        [HttpDelete("{id}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> DeleteComment(long id)
-        {
-            if (_context.Comments == null)
-            {
-                return NotFound("Context is null");
-            }
-            var comment = await _context.Comments.FindAsync(id);
-            if (comment == null)
-            {
-                return NotFound("The comment you wanted to delete did not exist from the beginning");
-            }
-
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CommentExists(long id)
-        {
-            return (_context.Comments?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }
