@@ -3,6 +3,7 @@ html, body{
     margin: 0;
     font-family: 'Poppins';
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 h1,h2{
     color: #2CCCFF;
@@ -50,7 +51,7 @@ h1,h2{
     color: #002F3E;
 }
 #bg {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     z-index: -2;
 }
