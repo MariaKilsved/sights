@@ -23,75 +23,35 @@ namespace sights.Controllers
 
         // GET: api/Like
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<Like>>> GetLikes()
         {
           if (_context.Likes == null)
           {
-              return NotFound();
+              return NotFound("Context was null");
           }
             return await _context.Likes.ToListAsync();
         }
 
         // GET: api/Like/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Like>> GetLike(long id)
         {
           if (_context.Likes == null)
           {
-              return NotFound();
+              return NotFound("Context was null");
           }
             var like = await _context.Likes.FindAsync(id);
 
             if (like == null)
             {
-                return NotFound();
+                return NotFound("Like was null");
             }
 
             return like;
-        }
-
-        // PUT: api/Like/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> PutLike(long id, Like like)
-        {
-            if (id != like.Id)
-            {
-                return BadRequest("Ids does not match");
-            }
-
-            if (like.UserId == null)
-            {
-                return BadRequest("Need a UserId");
-            }
-
-            if (like.AttractionId == null)
-            { 
-               return BadRequest("Need an attractionId");
-            }
-
-            _context.Entry(like).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LikeExists(id))
-                {
-                    return NotFound("No Like for this Id was found");
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Like
@@ -135,7 +95,6 @@ namespace sights.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-
         public async Task<IActionResult> DeleteLike(long id, long? attractionId, long? userId)
         {
             if (_context.Likes == null)
@@ -173,17 +132,10 @@ namespace sights.Controllers
                 return BadRequest("AttractionIds does not match");
             }
 
-
-
             _context.Likes.Remove(like);
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool LikeExists(long id)
-        {
-            return (_context.Likes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
