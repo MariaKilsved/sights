@@ -35,6 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 
         }
+        else window.alert('Failed to login');
             
         } catch (error) {
             window.alert('Failed to login')
