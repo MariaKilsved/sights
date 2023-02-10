@@ -166,7 +166,7 @@ namespace sights.Controllers
 
             if (!string.IsNullOrWhiteSpace(attraction?.City?.Name))
             {
-                var findCity = _context.Cities.Where(x => x.Name.ToUpper() == attraction.City.Name.ToUpper()).FirstOrDefault();
+                var findCity = _context.Cities.Where(x => x.Name == Utility.Utility.FirstLetterToUpper(attraction.City.Name)).FirstOrDefault();
 
                 if (findCity != null)
                 {
