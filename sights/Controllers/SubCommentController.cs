@@ -21,6 +21,24 @@ namespace sights.Controllers
         public SubCommentController(SqliteContext context)
         {
             _context = context;
+        } 
+
+        // GET: api/SubComment/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SubComment>> GetSubComment(long id)
+        {
+            if (_context.SubComments == null)
+            {
+                return NotFound();
+            }
+            var subComment = await _context.SubComments.FindAsync(id);
+
+            if (subComment == null)
+            {
+                return NotFound();
+            }
+
+            return subComment;
         }
 
         //Example jwt
@@ -33,17 +51,17 @@ namespace sights.Controllers
         [ProducesResponseType(404, Type = typeof(string))]
         public async Task<ActionResult<SubComment>> PostSubComment(SubComment subComment)
         {
-          if (_context.SubComments == null)
-          {
-              return Problem("Entity set 'SqliteContext.SubComments'  is null.");
-          }
+            if (_context.SubComments == null)
+            {
+                return Problem("Entity set 'SqliteContext.SubComments'  is null.");
+            }
             if (subComment.UserId == null)
             {
                 return BadRequest("userId is null");
 
             }
 
-            if(subComment.CommentId == null)
+            if (subComment.CommentId == null)
             {
                 return NotFound("A subcomment must be attached to a main comment");
             }
@@ -59,6 +77,6 @@ namespace sights.Controllers
             return CreatedAtAction("GetSubComment", new { id = subComment.Id }, subComment);
         }
 
-    
+      
     }
 }
