@@ -7,10 +7,10 @@
     padding-left: 0.5%;
     padding-right: 0.5%;
     padding-top: 0.5%;
-    padding-bottom: 3%;
+    padding-bottom: 0.5%;
     display: inline-block;
-
 }
+
 
 #addCommentBox {
     border-radius: 5px;
@@ -23,10 +23,19 @@
   
 }
 
+@media only screen and (max-height:730px) {
+    #addCommentBoxContainer{
+        display: flex;
+    }
+    #sendMessageBtn {
+        margin-left: 10px;
+        position: relative;
+    }
+}
+
 @media only screen and (max-width:480px) {
     #addCommentBoxContainer{
      width: 85%;
-    
     }
 }
 
