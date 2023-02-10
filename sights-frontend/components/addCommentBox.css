@@ -22,7 +22,7 @@
   
 }
 
-@media only screen and (max-height:832px) {
+@media only screen and (max-height:710px) {
     #addCommentBoxContainer{
         display: flex;
     }
