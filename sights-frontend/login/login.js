@@ -18,14 +18,14 @@ window.addEventListener("DOMContentLoaded", async () => {
         try {
         const response = await get(`https://localhost:7260/api/User/OldLogIn?username=${username}`);
         
-        const decryptDataBasePW = CryptoJS.AES.decrypt(response.password, username);
-        const decodedDataBasePW = decryptDataBasePW.toString(CryptoJS.enc.Utf8);
+        const decryptDataBasePassword = CryptoJS.AES.decrypt(response.password, username);
+        const decodedDataBasePassword = decryptDataBasePassword.toString(CryptoJS.enc.Utf8);
         
         const encryptInputPassword = CryptoJS.AES.encrypt(password, username).toString();
         const decryptInputPassword = CryptoJS.AES.decrypt(encryptInputPassword, username);
         const decodedInputPassword = decryptInputPassword.toString(CryptoJS.enc.Utf8);
 
-        if(decodedDataBasePW === decodedInputPassword){
+        if(decodedDataBasePassword === decodedInputPassword){
           
             const userInfo = {userId: response.id, username: username};
 
@@ -74,11 +74,11 @@ async function render(){
     buttonContainer.id = 'button-container';
     
     const logbtn = loginBtn('button');
-    const signbtn = signupBtn('a');
+    const signUpBtn = signupBtn('a');
     logbtn.innerHTML ='Login'
     logbtn.id = 'log-btn';
-    signbtn.innerHTML ='Sign Up'
-    signbtn.href = '/register'
+    signUpBtn.innerHTML ='Sign Up'
+    signUpBtn.href = '/register'
 
     const bg = document.createElement('img');
     bg.id = 'bg';
@@ -86,7 +86,7 @@ async function render(){
  
 
     buttonContainer.append(logbtn);
-    buttonContainer.append(signbtn);
+    buttonContainer.append(signUpBtn);
     card.append(buttonContainer);
     page.append(bg);
 }

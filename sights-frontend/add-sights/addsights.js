@@ -10,15 +10,15 @@ import {post} from '../lib/request.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     render();
-    const creBtn = document.getElementById('cre-btn');
+    const createBtn = document.getElementById('create-btn');
     const user = JSON.parse(window.localStorage.getItem('userinfo'));
-    creBtn.addEventListener('click', async()=>{
-        const ititle = document.getElementById('input-title').value;
-        const icountry = document.getElementById('input-country').value.trim();
-        const icity = document.getElementById('input-city').value.trim();
-        const idescription = document.getElementById('inputDescription').value;
+    createBtn.addEventListener('click', async()=>{
+        const inputTitle = document.getElementById('input-title').value;
+        const inputCountry = document.getElementById('input-country').value.trim();
+        const inputCity = document.getElementById('input-city').value.trim();
+        const inputDescription = document.getElementById('inputDescription').value;
 
-        const sightObj = {userId: user.userId, Title: ititle,Country:{name:icountry},City:{name: icity},Description: idescription}
+        const sightObj = {userId: user.userId, Title: inputTitle,Country:{name:inputCountry},City:{name: inputCity},Description: inputDescription}
         const response = await post(`https://localhost:7260/api/Attraction?`, sightObj);
         window.alert('Your sight added')
         window.location.href='/'
@@ -35,10 +35,10 @@ function render(){
     
     const logo = icon(); 
     logo.className = 'logoClass' ;
-    const addSight = document.createElement('p');
-    addSight.className = "p2";
-    addSight.innerHTML = 'Add Sight';
-    card.append(addSight)
+    const addSightText = document.createElement('p');
+    addSightText.className = "p2";
+    addSightText.innerHTML = 'Add Sight';
+    card.append(addSightText)
 
     const inputTitle= document.createElement("input");
     inputTitle.id ='input-title';
@@ -66,26 +66,25 @@ function render(){
 
     const buttonContainer = document.createElement('div');
     buttonContainer.id = 'button-container';
-    const creBtn = createBtn('button');
+    const createButton = createBtn('button');
     const backBtn = cancelBtn('a');
-    creBtn.innerHTML ='Add sight'
-    creBtn.id = 'cre-btn';
+    createButton.innerHTML ='Add sight'
+    createButton.id = 'create-btn';
     
     backBtn.innerHTML ='Cancel'
     backBtn.href = '/'
-    buttonContainer.append(creBtn);
+    buttonContainer.append(createButton);
     buttonContainer.append(backBtn);
     card.append(buttonContainer);
 
-    const bg = document.createElement('img');
-    bg.id = 'bg';
-    bg.src = '../icons/bg.svg';
+    const bgIMG = document.createElement('img');
+    bgIMG.id = 'bg';
+    bgIMG.src = '../icons/bg.svg';
  
     page.append(menu);
-    //page.append(logo);
     page.append(card);
 
-    page.append(bg);
+    page.append(bgIMG);
    
 
 }

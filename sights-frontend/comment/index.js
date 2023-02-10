@@ -5,7 +5,6 @@ import Sight from "../components/Sight.js";
 import CommentBox from '../components/CommentBox.js'
 import AddCommentBox from "../components/AddCommentBox.js";
 import { post, get, deleteRequest, putRequest } from '../lib/request.js';
-import commentSamplePostData from './mock-data/MockData.js'
 
 window.addEventListener("DOMContentLoaded", async () => {
     
@@ -13,7 +12,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     const attractionId = new URLSearchParams(queryString).get('id');
     let likes = await get(`https://localhost:7260/api/Like`);
     const comments = await get(`https://localhost:7260/api/Comment/ByAttraction?attractionId=${attractionId}`);
-    console.log(comments)
     const attraction = await get(`https://localhost:7260/api/Attraction/${attractionId}`)
     const user = JSON.parse(localStorage.getItem('userinfo'));
     let isLiked;
@@ -115,7 +113,6 @@ window.addEventListener("DOMContentLoaded", async () => {
             const commentContainer = document.getElementById('commentContainer');
             const newComment = CommentBox(addCommentText.value, storedUser.username);
             commentContainer.appendChild(newComment);
-            commentSamplePostData.content = addCommentText.value;
     
             const comment = {
                     userId: storedUser.userId,
