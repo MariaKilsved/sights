@@ -30,6 +30,8 @@ namespace sights.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<User>> GetUser(long id)
         {
           if (_context.Users == null)
@@ -138,7 +140,7 @@ namespace sights.Controllers
             }
 
             //Testing for both username and password
-            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
 
             if (!Users2.Any())
             {
