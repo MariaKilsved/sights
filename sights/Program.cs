@@ -64,7 +64,7 @@ app.UseCors(x => x
     .AllowCredentials()); // allow credentials
 
 //app.UseAuthentication();
-//app.UseAuthorization();
+
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
