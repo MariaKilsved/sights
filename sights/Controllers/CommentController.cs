@@ -22,6 +22,7 @@ namespace sights.Controllers
             _context = context;
         }
 
+        // GET: api/Comment/ByAttraction
         [HttpGet("ByAttraction")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

@@ -216,35 +216,5 @@ namespace sights.Controllers
             }
             return groupedAttractionLikes;
         }
-        private Task<ActionResult<long?>> LikeCountQueryAsync(long attractionId) => Task.Run(() => LikeCountQuery(attractionId));
-        private ActionResult<long?> LikeCountQuery(long attractionId)
-        {
-            List<AttractionLike> groupedAttractionLikes;
-
-            using (var context = _context)
-            {
-                var attractionLikes = from attraction in context.Attractions
-                                      join like in context.Likes on attraction equals like.Attraction into al
-                                      from l in al.DefaultIfEmpty()
-                                      where attraction.Id == attractionId
-                                      select new AttractionLike
-                                      {
-                                          Attraction = attraction,
-                                          LikeCount = l.Like1 ?? 0
-                                      };
-
-                groupedAttractionLikes = (from al in attractionLikes
-                                          group al by al.Attraction.Id)
-                                              .Select(group => new AttractionLike
-                                              {
-                                                  Attraction = group.ToList().First().Attraction,
-                                                  LikeCount = group.ToList().Sum(item => item.LikeCount)
-                                              })
-                                              .OrderByDescending(g => g.LikeCount)
-                                              .ToList();
-            }
-
-            return groupedAttractionLikes?.FirstOrDefault()?.LikeCount;
-        }
     }
 }
