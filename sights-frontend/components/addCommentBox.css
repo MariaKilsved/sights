@@ -1,4 +1,5 @@
 
+
 #addCommentBoxContainer{
     width: 40%;
     height: 15%;
@@ -13,9 +14,8 @@
 
 #addCommentBox {
     border-radius: 5px;
-    height: auto;
     width: 100%;
-    height: 100%;
+    height: 50%;
     resize: none;
     border: 3px solid grey;
     outline: none;
