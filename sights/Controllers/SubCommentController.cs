@@ -25,6 +25,8 @@ namespace sights.Controllers
 
         // GET: api/SubComment/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<SubComment>> GetSubComment(long id)
         {
             if (_context.SubComments == null)
