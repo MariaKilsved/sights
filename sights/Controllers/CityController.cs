@@ -24,11 +24,13 @@ namespace sights.Controllers
 
         // GET: api/City
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<IEnumerable<City>>> GetCities()
         {
           if (_context.Cities == null)
           {
-              return NotFound();
+              return NotFound("Context was null");
           }
             return await _context.Cities.ToListAsync();
         }
