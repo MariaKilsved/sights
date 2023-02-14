@@ -15,30 +15,15 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
-        try {
-        const response = await get(`https://localhost:7260/api/User/OldLogIn?username=${username}`, null);
-        
-        const decryptDataBasePassword = CryptoJS.AES.decrypt(response.password, username);
-        const decodedDataBasePassword = decryptDataBasePassword.toString(CryptoJS.enc.Utf8);
-        
-        const encryptInputPassword = CryptoJS.AES.encrypt(password, username).toString();
-        const decryptInputPassword = CryptoJS.AES.decrypt(encryptInputPassword, username);
-        const decodedInputPassword = decryptInputPassword.toString(CryptoJS.enc.Utf8);
+        // try {
+        const response = await get(`https://localhost:7260/api/User/Login?username=${username}&password=${password}`, null);
 
-        if(decodedDataBasePassword === decodedInputPassword){
-          
-            const userInfo = {userId: response.id, username: username};
-
-            localStorage.setItem('userinfo', JSON.stringify(userInfo))
+        if (response.encryptedToken){
+            localStorage.setItem('userinfo', JSON.stringify(response))
             window.alert(`Welcome ${username}`)
             window.location.href='/'
         }
         else window.alert('Failed to login');
-            
-        } catch (error) {
-            window.alert('Failed to login')
-        }
-       
 
     });
 
