@@ -24,8 +24,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                     if(passwordAccount != undefined
                         && passwordAccount != null
                         && passwordAccount != ''){
-                            const encryptedPassword = CryptoJS.AES.encrypt(confirmPassword, accountname).toString();
-                            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: encryptedPassword});
+                            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: confirmPassword});
                             window.location.href='/'
                         
                     }

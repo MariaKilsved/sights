@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         // try {
         const response = await get(`https://localhost:7260/api/User/Login?username=${username}&password=${password}`, null);
         console.log(response.encryptedToken);
-        console.log(response);
+        console.log(response.userId);
 
         if (response.encryptedToken){
             localStorage.setItem('userinfo', JSON.stringify(response))
