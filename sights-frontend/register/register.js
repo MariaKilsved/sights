@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                         && passwordAccount != null
                         && passwordAccount != ''){
                             const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: confirmPassword});
-                            window.location.href='/'
+                            window.location.href='/login'
                         
                     }
                     else{
