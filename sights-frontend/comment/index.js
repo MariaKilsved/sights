@@ -111,7 +111,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             const attractionId = new URLSearchParams(queryString).get('id');
 
             const commentContainer = document.getElementById('commentContainer');
-            const newComment = CommentBox(addCommentText.value, storedUser.username);
+            const newComment = CommentBox(addCommentText.value, storedUser.userName);
             commentContainer.appendChild(newComment);
     
             const comment = {

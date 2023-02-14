@@ -7,7 +7,6 @@ import {get} from './lib/request.js';
 window.addEventListener("DOMContentLoaded", async () => {
 
     const user = JSON.parse(window.localStorage.getItem('userinfo'));
-    console.log(user);
 
     const sights = await fetch('https://localhost:7260/api/Attraction').then(res => res.json());
     const countries = await fetch('https://localhost:7260/api/Country').then(res => res.json());

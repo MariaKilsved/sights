@@ -33,7 +33,7 @@ export default function Menu(){
         signup.href = '/register'
     } else {
         signup = secondaryButton('a');
-        signup.innerHTML = user.username;
+        signup.innerHTML = user.userName;
     }
 
     const logo = icon();
