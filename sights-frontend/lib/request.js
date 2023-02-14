@@ -30,8 +30,9 @@ export async function post(url, obj, jwtEncryptedToken = null){
         mode: 'cors',
         headers: _headers,
           body: JSON.stringify(obj)
-    }).then(res => res.json())
-    return response;
+    })
+    const message = await response.json();
+    return {status:response.status,response:message};
 }
 
 export async function deleteRequest(url, jwtEncryptedToken = null){
