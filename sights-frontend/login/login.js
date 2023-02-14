@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const password = document.getElementById('input-password').value;
         
         try {
-        const response = await get(`https://localhost:7260/api/User/OldLogIn?username=${username}`);
+        const response = await get(`https://localhost:7260/api/User/OldLogIn?username=${username}`, null);
         
         const decryptDataBasePassword = CryptoJS.AES.decrypt(response.password, username);
         const decodedDataBasePassword = decryptDataBasePassword.toString(CryptoJS.enc.Utf8);
@@ -32,8 +32,6 @@ window.addEventListener("DOMContentLoaded", async () => {
             localStorage.setItem('userinfo', JSON.stringify(userInfo))
             window.alert(`Welcome ${username}`)
             window.location.href='/'
-
-
         }
         else window.alert('Failed to login');
             
