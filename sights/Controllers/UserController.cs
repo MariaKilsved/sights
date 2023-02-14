@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using sights.JwtAuthorization;
 using sqlite.Data;
 using sqlite.Models;
-using Microsoft.AspNetCore.Authorization;
-using sights.JwtAuthorization;
-using sights.Models;
-using NuGet.Common;
 
 namespace sights.Controllers
 {
@@ -34,10 +26,10 @@ namespace sights.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<User>> GetUser(long id)
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
+            if (_context.Users == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
@@ -61,30 +53,46 @@ namespace sights.Controllers
                 return NotFound("Entity set 'SqliteContext.Users'  is null.");
             }
 
-            //Will complain of empty request body instead
-            if (user == null)
+            //Then, checking if the username already existed or not
+            if (!string.IsNullOrWhiteSpace(user.Username))
             {
-                return BadRequest("User is null.");
+                var findUser = _context.Users.Where(x => x.Username == user.Username).FirstOrDefault();
+
+                //If the username was found
+                if (findUser != null)
+                {
+                   return BadRequest("The username already exists");
+                }
+                //If the username didn't exist
+                else
+                {
+                    //Will complain of empty request body instead
+                    if (user == null)
+                    {
+                        return BadRequest("User is null.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(user.Username))
+                    {
+                        return BadRequest("Must have a username");
+                        user.Username = user.Username.Trim();
+                    }
+                }
+                if (string.IsNullOrWhiteSpace(user.Password))
+                {
+                    return BadRequest("Must have a password");
+                }
+
+                //Encrypt password
+                string encryptedPassword = Utility.Encryption.HashPbkdf2(user.Password);
+                user.Password = encryptedPassword;
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+
             }
-          
-            if(string.IsNullOrWhiteSpace(user.Username))
-            {
-                return BadRequest("Must have a username");
-            }
-
-            if(string.IsNullOrWhiteSpace(user.Password))
-            {
-                return BadRequest("Must have a password");
-            }
-
-            //Encrypt password
-            string encryptedPassword = Utility.Encryption.HashPbkdf2(user.Password);
-            user.Password = encryptedPassword;
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            
+                return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         [HttpGet("Login")]
