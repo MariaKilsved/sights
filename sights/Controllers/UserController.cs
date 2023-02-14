@@ -96,19 +96,11 @@ namespace sights.Controllers
             }
 
             //Testing for username only first
-            IEnumerable<User> Users1 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+            IEnumerable<User> Users = await _context.Users.Where(u => u.Username == username).ToListAsync();
 
-            if (!Users1.Any())
+            if (!Users.Any())
             {
                 return NotFound("Username is incorrect or user does not exist.");
-            }
-
-            //Testing for both username and password
-            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
-
-            if (!Users2.Any())
-            {
-                return BadRequest("Password is incorrect.");
             }
 
             JwtUserToken Token = JwtAuthorization.JwtAuthorization.CreateJwtTokenKey(new JwtUserToken()
@@ -132,22 +124,14 @@ namespace sights.Controllers
             }
 
             //Testing for username only first
-            IEnumerable<User> Users1 = await _context.Users.Where(u => u.Username == username).ToListAsync();
+            IEnumerable<User> Users = await _context.Users.Where(u => u.Username == username).ToListAsync();
 
-            if (!Users1.Any())
+            if (!Users.Any())
             {
                 return NotFound("Username is incorrect or user does not exist.");
             }
 
-            //Testing for both username and password
-            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == password).ToListAsync();
-
-            if (!Users2.Any())
-            {
-                return BadRequest("Password is incorrect.");
-            }
-
-            return Users2.First();
+            return Users.First();
 
 
         }
