@@ -56,26 +56,30 @@ namespace sights.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-          if (_context.Users == null)
-          {
-              return NotFound("Entity set 'SqliteContext.Users'  is null.");
-          }
+            if (_context.Users == null)
+            {
+                return NotFound("Entity set 'SqliteContext.Users'  is null.");
+            }
 
-          //Will complain of empty request body instead
-          if (user == null)
-          {
-              return BadRequest("User is null.");
-          }
+            //Will complain of empty request body instead
+            if (user == null)
+            {
+                return BadRequest("User is null.");
+            }
           
-          if(user.Username == null)
-          {
-              return BadRequest("Username is null");
-          }
+            if(string.IsNullOrWhiteSpace(user.Username))
+            {
+                return BadRequest("Must have a username");
+            }
 
-          if(user.Password == null)
-          {
-               return BadRequest("Password is null");
-          }
+            if(string.IsNullOrWhiteSpace(user.Password))
+            {
+                return BadRequest("Must have a password");
+            }
+
+            //Encrypt password
+            string encryptedPassword = Utility.Encryption.HashPbkdf2(user.Password);
+            user.Password = encryptedPassword;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -88,11 +92,20 @@ namespace sights.Controllers
         [ProducesResponseType(400, Type = typeof(string))]
         [ProducesResponseType(404, Type = typeof(string))]
         public async Task<ActionResult<User>> Login(string username, string? password)
-            
         {
             if (_context.Users == null)
             {
                 return NotFound("Context was null");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest("Must have a username");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest("Must have a password");
             }
 
             //Testing for username only first
@@ -101,6 +114,17 @@ namespace sights.Controllers
             if (!Users.Any())
             {
                 return NotFound("Username is incorrect or user does not exist.");
+            }
+
+            //Encrypt password
+            string encryptedPassword = Utility.Encryption.HashPbkdf2(password);
+
+            //Testing for both username and password
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == encryptedPassword).ToListAsync();
+
+            if (!Users2.Any())
+            {
+                return BadRequest("Password is incorrect.");
             }
 
             JwtUserToken Token = JwtAuthorization.JwtAuthorization.CreateJwtTokenKey(new JwtUserToken()
@@ -120,7 +144,17 @@ namespace sights.Controllers
         {
             if (_context.Users == null)
             {
-                return NotFound();
+                return NotFound("Context was null");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest("Must have a username");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest("Must have a password");
             }
 
             //Testing for username only first
@@ -131,9 +165,18 @@ namespace sights.Controllers
                 return NotFound("Username is incorrect or user does not exist.");
             }
 
-            return Users.First();
+            //Encrypt password
+            string encryptedPassword = Utility.Encryption.HashPbkdf2(password);
 
+            //Testing for both username and password
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == encryptedPassword).ToListAsync();
 
+            if (!Users2.Any())
+            {
+                return BadRequest("Password is incorrect.");
+            }
+
+            return Users2.First();
         }
 
     }
