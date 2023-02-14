@@ -16,26 +16,19 @@ window.addEventListener("DOMContentLoaded", async () => {
         
         if (passwordAccount === confirmPassword 
            ){
-            
-                if(accountname != undefined 
-                    && accountname != null 
-                    && accountname != ''){
-
-                    if(passwordAccount != undefined
-                        && passwordAccount != null
-                        && passwordAccount != ''){
-                            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: confirmPassword});
-                            window.location.href='/login'
+                                     
+                            const response = await post(`https://localhost:7260/api/User?`,{username: accountname, password: passwordAccount});
                         
-                    }
-                    else{
-                        window.alert('Must have a password')
-                    }
-                   
-                }
-                else{
-                    window.alert('Must have a username')
-                }
+                            if(response.status == 400){
+                                window.alert(response.response)
+                            }
+                            else if(accountname != null && passwordAccount!= null){
+                                window.alert("Need to write username and password")
+                            }
+                            else{
+                                window.location.href='/login/' 
+                            }
+   
         }
         else
         {

@@ -61,26 +61,25 @@ namespace sights.Controllers
                 //If the username was found
                 if (findUser != null)
                 {
-                   return BadRequest("The username already exists");
+                    return BadRequest("The username already exists");
                 }
                 //If the username didn't exist
-                else
+                else if (user == null)
                 {
                     //Will complain of empty request body instead
-                    if (user == null)
-                    {
-                        return BadRequest("User is null.");
-                    }
 
-                    if (string.IsNullOrWhiteSpace(user.Username))
-                    {
-                        return BadRequest("Must have a username");
-                        user.Username = user.Username.Trim();
-                    }
+                    return BadRequest("User is null.");
+
                 }
-                if (string.IsNullOrWhiteSpace(user.Password))
+                else if (string.IsNullOrWhiteSpace(user.Password))
                 {
                     return BadRequest("Must have a password");
+                }
+
+                else if (string.IsNullOrWhiteSpace(user.Username))
+                {
+                    return BadRequest("Must have a username");
+                    user.Username = user.Username.Trim();
                 }
 
                 //Encrypt password
@@ -91,8 +90,8 @@ namespace sights.Controllers
                 await _context.SaveChangesAsync();
 
             }
-            
-                return CreatedAtAction("GetUser", new { id = user.Id }, user);
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         [HttpGet("Login")]
