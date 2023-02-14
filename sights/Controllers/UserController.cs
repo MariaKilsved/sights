@@ -144,7 +144,17 @@ namespace sights.Controllers
         {
             if (_context.Users == null)
             {
-                return NotFound();
+                return NotFound("Context was null");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest("Must have a username");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest("Must have a password");
             }
 
             //Testing for username only first
@@ -155,9 +165,18 @@ namespace sights.Controllers
                 return NotFound("Username is incorrect or user does not exist.");
             }
 
-            return Users.First();
+            //Encrypt password
+            string encryptedPassword = Utility.Encryption.HashPbkdf2(password);
 
+            //Testing for both username and password
+            IEnumerable<User> Users2 = await _context.Users.Where(u => u.Username == username && u.Password == encryptedPassword).ToListAsync();
 
+            if (!Users2.Any())
+            {
+                return BadRequest("Password is incorrect.");
+            }
+
+            return Users2.First();
         }
 
     }
