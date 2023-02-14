@@ -15,15 +15,20 @@ window.addEventListener("DOMContentLoaded", async () => {
         const username = document.getElementById('input-user').value;
         const password = document.getElementById('input-password').value;
         
-        // try {
-        const response = await get(`https://localhost:7260/api/User/Login?username=${username}&password=${password}`, null);
+        try {
 
-        if (response.encryptedToken){
-            localStorage.setItem('userinfo', JSON.stringify(response))
-            window.alert(`Welcome ${username}`)
-            window.location.href='/'
-        }
-        else window.alert('Failed to login');
+            const response = await get(`https://localhost:7260/api/User/Login?username=${username}&password=${password}`, null);
+            
+            if (response.encryptedToken){
+                localStorage.setItem('userinfo', JSON.stringify(response))
+                window.alert(`Welcome ${username}`)
+                window.location.href='/'
+            }
+            else window.alert('Failed to login');
+        }catch(err){
+            console.log(err);
+        } 
+            
 
     });
 

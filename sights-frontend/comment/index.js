@@ -26,6 +26,16 @@ window.addEventListener("DOMContentLoaded", async () => {
      const commenctContainer = document.getElementById('commentContainer');
     if (!commenctContainer.hasChildNodes()) commenctContainer.style.display = 'none';
 
+    const upVote = document.getElementById('likesUpIMG');
+    upVote.addEventListener('click', async () => {
+        if (!user) window.alert('Need to login to like');
+    })
+
+    const downVote = document.getElementById('likesDownIMG');
+    downVote.addEventListener('click', async () => {
+        if (!user) window.alert('Need to login to dislike');
+    })
+
     if(user){
         const upVote = document.getElementById('likesUpIMG');
         upVote.addEventListener('click', async () => {
@@ -42,7 +52,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 upVoteNr++;
                 upVote.innerHTML = upVoteNr;
     
-                await post(`https://localhost:7260/api/Like`, userLike);
+                await post(`https://localhost:7260/api/Like`, userLike, user.encryptedToken);
             }
             else {
                 let upVoteNr = upVote.innerHTML;
@@ -56,7 +66,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
     
-                await deleteRequest(`https://localhost:7260/api/Like/${likeId}?attractionId=${attractionId}&userId=${user.userId}`);
+                await deleteRequest(`https://localhost:7260/api/Like/${likeId}?attractionId=${attractionId}&userId=${user.userId}`, user.encryptedToken);
             }
     
             likes = await get(`https://localhost:7260/api/Like`);
@@ -78,7 +88,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 downVoteNr++;
                 downVote.innerHTML = downVoteNr;
     
-                await post(`https://localhost:7260/api/Like`, userLike);
+                await post(`https://localhost:7260/api/Like`, userLike, user.encryptedToken);
             }
             else {
                 let downVoteNr = downVote.innerHTML;
@@ -92,7 +102,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                     }
                 });
     
-                await deleteRequest(`https://localhost:7260/api/Like/${likeId}?attractionId=${attractionId}&userId=${user.userId}`);
+                await deleteRequest(`https://localhost:7260/api/Like/${likeId}?attractionId=${attractionId}&userId=${user.userId}`, user.encryptedToken);
             }
     
             likes = await get(`https://localhost:7260/api/Like`);
@@ -119,7 +129,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                     content: addCommentText.value,
                     attractionId: attractionId,
             }   
-            await post(`https://localhost:7260/api/comment`, comment);
+            await post(`https://localhost:7260/api/comment`, comment, user.encryptedToken);
     
             addCommentText.value = '';
             if (commenctContainer.hasChildNodes()) commenctContainer.style.display = 'block';
