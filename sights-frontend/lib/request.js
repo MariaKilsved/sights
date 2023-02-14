@@ -29,7 +29,7 @@ export async function post(url, obj, jwtEncryptedToken = null){
         method: 'POST',
         mode: 'cors',
         headers: _headers,
-          body: JSON.stringify(obj)
+        body: JSON.stringify(obj)
     })
     const message = await response.json();
     return {status:response.status,response:message};
