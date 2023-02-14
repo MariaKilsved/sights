@@ -130,6 +130,7 @@ namespace sights.Controllers
             JwtUserToken Token = JwtAuthorization.JwtAuthorization.CreateJwtTokenKey(new JwtUserToken()
             {
                 UserName = username,
+                UserId = Users2.First().Id,
             }, _jwtSettings); ;
 
             return Ok(Token);
