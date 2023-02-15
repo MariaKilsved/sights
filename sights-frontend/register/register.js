@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const passwordAccount = document.getElementById('input-password').value;
         const confirmPassword = document.getElementById('input-confirmpassword').value;
 
+        if (accountname == '') return window.alert('Need to have a username');
         
         if (passwordAccount === confirmPassword 
            ){
