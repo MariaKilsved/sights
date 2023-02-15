@@ -24,6 +24,27 @@ namespace sights.Controllers
             _context = context;
         }
 
+
+        // GET: api/Comment/5
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<Comment>> GetComment(long id)
+        {
+            if (_context.Comments == null)
+            {
+                return NotFound();
+            }
+            var comment = await _context.Comments.FindAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return comment;
+        }
+
         // GET: api/Comment/ByAttraction
         [HttpGet("ByAttraction")]
         [ProducesResponseType(200)]
