@@ -52,44 +52,33 @@ namespace sights.Controllers
             {
                 return NotFound("Entity set 'SqliteContext.Users'  is null.");
             }
-
-            //Then, checking if the username already existed or not
-            if (!string.IsNullOrWhiteSpace(user.Username))
+            if(user == null)
             {
-                var findUser = _context.Users.Where(x => x.Username == user.Username).FirstOrDefault();
-
-                //If the username was found
-                if (findUser != null)
-                {
-                    return BadRequest("The username already exists");
-                }
-                //If the username didn't exist
-                else if (user == null)
-                {
-                    //Will complain of empty request body instead
-
-                    return BadRequest("User is null.");
-
-                }
-                else if (string.IsNullOrWhiteSpace(user.Password))
-                {
-                    return BadRequest("Must have a password");
-                }
-
-                else if (string.IsNullOrWhiteSpace(user.Username))
-                {
-                    return BadRequest("Must have a username");
-                    user.Username = user.Username.Trim();
-                }
-
-                //Encrypt password
-                string encryptedPassword = Utility.Encryption.HashPbkdf2(user.Password);
-                user.Password = encryptedPassword;
-
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-
+                return BadRequest("User is null.");
             }
+            if(string.IsNullOrWhiteSpace(user.Username))
+            {
+                return BadRequest("User must have a username");
+            }
+            if (string.IsNullOrWhiteSpace(user.Password))
+            {
+                return BadRequest("User must have a password");
+            }
+
+            var findUser = _context.Users.Where(x => x.Username == user.Username).FirstOrDefault();
+
+            //If the username was found
+            if (findUser != null)
+            {
+                return BadRequest("The username already exists");
+            }
+
+            //Encrypt password
+            string encryptedPassword = Utility.Encryption.HashPbkdf2(user.Password);
+            user.Password = encryptedPassword;
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
