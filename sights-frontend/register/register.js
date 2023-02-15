@@ -26,6 +26,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                                 window.alert("Need to write username and password")
                             }
                             else{
+                                window.alert("Sucesfully created a user!")
                                 window.location.href='/login/' 
                             }
    
