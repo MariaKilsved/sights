@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                             if(response.status == 400){
                                 window.alert(response.response)
                             }
-                            else if(accountname == null && passwordAccount == null){
+                            else if(accountname == "" && passwordAccount == ""){
                                 window.alert("Need to write username and password")
                             }
                             else{
