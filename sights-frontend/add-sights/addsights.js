@@ -18,8 +18,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         const inputCity = document.getElementById('input-city').value.trim();
         const inputDescription = document.getElementById('inputDescription').value;
 
+        const storedUser = JSON.parse(localStorage.getItem('userinfo'));
+
         const sightObj = {userId: user.userId, Title: inputTitle,Country:{name:inputCountry},City:{name: inputCity},Description: inputDescription}
-        const response = await post(`https://localhost:7260/api/Attraction?`, sightObj);
+        const response = await post(`https://localhost:7260/api/Attraction?`, sightObj, storedUser.encryptedToken);
         window.alert('Your sight added')
         window.location.href='/'
 
