@@ -87,6 +87,7 @@ namespace sights.Controllers
           {
               return NotFound("Entity set 'SqliteContext.Comments'  is null.");
           }
+
           if(comment.UserId == null)
           {
                 return BadRequest("userId is null");
